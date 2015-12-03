@@ -2,6 +2,7 @@
 namespace LendInvest\ModelTest;
 
 use LendInvest\Model\Tranche;
+use LendInvest\Model\Investment;
 
 /**
  * TrancheTest
@@ -22,5 +23,26 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
         $this->assertClassHasAttribute('maxAmount', 'LendInvest\Model\Tranche');
         $this->assertClassHasAttribute('investments', 'LendInvest\Model\Tranche');
         $this->assertClassHasAttribute('createdAt', 'LendInvest\Model\Tranche');
+    }
+
+    public function testTrancheDoesNotHaveInvestments()
+    {
+        $tranche = new Tranche;
+        $this->assertFalse($tranche->hasInvestments());
+    }
+
+
+    public function testCanAddInvestmentToTranche()
+    {
+        $tranche = new Tranche;
+        $investment = new Investment;
+
+        $tranche->addInvestment($investment);
+        $this->assertTrue($tranche->hasInvestments());
+
+        $investments = $tranche->getInvestments();
+        foreach ($investments as $investment) {
+            $this->assertInstanceOf('LendInvest\Model\Investment', $investment);
+        }
     }
 }
