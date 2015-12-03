@@ -33,4 +33,10 @@ class Investor extends User implements EntityInterface
     {
         return $this->wallet;
     }
+
+
+    public function hasWallet()
+    {
+        return $this->wallet instanceof Wallet;
+    }
 }
