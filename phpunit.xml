@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        backupStaticAttributes="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        processIsolation="false"
+        stopOnFailure="false"
+        syntaxCheck="false"
+        bootstrap="vendor/autoload.php">
+
+    <testsuites>
+        <testsuite name="LendInvest">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+      <blacklist>
+        <directory suffix=".php">tests/</directory>
+        <directory suffix=".php">vendor/</directory>
+        <directory suffix=".inc">vendor/</directory>
+      </blacklist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="build/coverage"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-php" target="build/cov/coverage.cov"/>
+    </logging>
+
+</phpunit>
