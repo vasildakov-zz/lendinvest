@@ -13,11 +13,19 @@ class InterestTest extends \PHPUnit_Framework_TestCase
 {
     public function testInterestInstance()
     {
-        $this->assertInstanceOf('LendInvest\Model\Interest', new Interest);
+        $this->assertInstanceOf('LendInvest\Model\Interest', new Interest(6));
     }
 
     public function testInterestProperties()
     {
         $this->assertClassHasAttribute('percentage', 'LendInvest\Model\Interest');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testExceptionIsRaisedForInvalidConstructorArgument()
+    {
+        new Interest(null);
     }
 }
