@@ -48,6 +48,7 @@ class Loan implements EntityInterface
         return $this->tranches;
     }
 
+
     /**
      * @return boolean  Return false if Loan does not have tranches
      */
@@ -56,19 +57,28 @@ class Loan implements EntityInterface
         return !empty($this->tranches);
     }
 
+
+    /**
+     * @param \DateTime $startDate
+     */
     public function setStartDate(\DateTime $startDate)
     {
         $this->startDate = $startDate;
 
         return $this;
     }
-
+    
+    /**
+     * @return \DateTime $startDate
+     */
     public function getStartDate()
     {
         return $this->startDate;
     }
 
-
+    /**
+     * @param \DateTime $endDate
+     */
     public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
@@ -76,13 +86,18 @@ class Loan implements EntityInterface
         return $this;
     }
 
-
+    /**
+     * @return \DateTime $endDate
+     */
     public function getEndDate()
     {
         return $this->endDate;
     }
 
-
+    /**
+     * Returns the number of days
+     * @return int  $days
+     */
     public function getNumberOfDays()
     {
         $date = $this->getStartDate();
@@ -94,5 +109,4 @@ class Loan implements EntityInterface
         
         return $days;
     }
-
 }
