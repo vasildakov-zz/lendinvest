@@ -11,12 +11,12 @@ use LendInvest\Model\Wallet;
  */
 class WalletTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInvestorInstance()
+    public function testWalletInstance()
     {
         $this->assertInstanceOf('LendInvest\Model\Wallet', new Wallet);
     }
 
-    public function testInvestorProperties()
+    public function testWalletProperties()
     {
         $this->assertClassHasAttribute('balance', 'LendInvest\Model\Wallet');
     }
