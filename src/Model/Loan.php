@@ -1,7 +1,7 @@
 <?php
 namespace Lendinvest\Model;
 
-use Lendinvest\Tranche;
+use Lendinvest\Model\Tranche;
 
 /**
  * Loan
