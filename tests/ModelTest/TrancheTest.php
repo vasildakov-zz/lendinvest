@@ -3,6 +3,7 @@ namespace LendInvest\ModelTest;
 
 use LendInvest\Model\Tranche;
 use LendInvest\Model\Investment;
+use LendInvest\Model\Interest;
 
 /**
  * TrancheTest
@@ -20,6 +21,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
     public function testTrancheProperties()
     {
         $this->assertClassHasAttribute('loan', 'LendInvest\Model\Tranche');
+        $this->assertClassHasAttribute('interest', 'LendInvest\Model\Tranche');
         $this->assertClassHasAttribute('maxAmount', 'LendInvest\Model\Tranche');
         $this->assertClassHasAttribute('investments', 'LendInvest\Model\Tranche');
         $this->assertClassHasAttribute('createdAt', 'LendInvest\Model\Tranche');
