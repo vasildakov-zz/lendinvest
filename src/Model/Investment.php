@@ -26,12 +26,20 @@ class Investment implements EntityInterface
      */
     private $createdAt;
 
+    /**
+     * @var \Lendinvest\Model\Tranche $tranche
+     */
+    private $tranche;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime("now");
     }
 
+    /**
+     * @param [type] $amount [description]
+     */
     public function setAmount($amount)
     {
         $this->amount = $amount;
@@ -40,16 +48,38 @@ class Investment implements EntityInterface
     }
 
 
+    /**
+     * @return [type] [description]
+     */
     public function getAmount()
     {
         return $this->amount;
     }
 
 
+    /**
+     * @param Investor $investor [description]
+     */
     public function setInvestor(Investor $investor)
     {
         $this->investor = $investor;
 
         return $this;
+    }
+
+
+    /**
+     * Return Investment earn
+     * @return [type] [description]
+     */
+    public function getEarn()
+    {
+        $tranche = $this->getTranche();
+        $rate = $tranche->getDailyInterestRate();
+        $loan = $tranche->getLoan();
+
+        $earn = ($this->amount * $rate / 100) * $days;
+
+        return $earn;
     }
 }

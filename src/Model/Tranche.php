@@ -40,7 +40,6 @@ class Tranche implements EntityInterface
 
 
 
-
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -66,6 +65,10 @@ class Tranche implements EntityInterface
     }
 
 
+    /**
+     * Returns current investments amount
+     * @return int $amount
+     */
     public function getCurrentAmount()
     {
         $amount = 0;
@@ -79,21 +82,56 @@ class Tranche implements EntityInterface
     }
 
 
+    /**
+     * @return boolean  Returns false if Tranche does not have Investments
+     */
     public function hasInvestments()
     {
         return !empty($this->investments);
     }
 
 
+    /**
+     * @return array $investments
+     */
     public function getInvestments()
     {
         return $this->investments;
     }
 
 
+    /**
+     * @param Investment $investment
+     */
     public function addInvestment(Investment $investment)
     {
+        $currentAmount = $this->getCurrentAmount();
+        $investmentAmount = $investment->getAmount();
+        if ($currentAmount + $investmentAmount > $this->getMaxAmount()) {
+            throw new \RuntimeException;
+        }
+
         $this->investments[] = $investment;
+    }
+
+
+    /**
+     * @param \LendInvest\Model\Loan $loan
+     */
+    public function setLoan($loan)
+    {
+        $this->loan = $loan;
+
+        return $this;
+    }
+
+
+    /**
+     * @return \LendInvest\Model\Loan $loan
+     */
+    public function getLoan()
+    {
+        return $this->loan;
     }
 
 
@@ -114,5 +152,20 @@ class Tranche implements EntityInterface
     public function getInterest()
     {
         return $this->interest;
+    }
+
+
+    /**
+     * @return float  Returns daily interest rate
+     */
+    public function getDailyInterestRate()
+    {
+        $loan = $this->getLoan();
+        $interest = $this->getInterest();
+
+        $percentage = $interest->getPercentage();
+        $days = $loan->getNumberOfDays();
+
+        return round($percentage / $days, 2);
     }
 }

@@ -76,8 +76,23 @@ class Loan implements EntityInterface
         return $this;
     }
 
+
     public function getEndDate()
     {
         return $this->endDate;
     }
+
+
+    public function getNumberOfDays()
+    {
+        $date = $this->getStartDate();
+
+        $month = $date->format('m');
+        $year   =  $date->format('Y');
+
+        $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        
+        return $days;
+    }
+
 }
