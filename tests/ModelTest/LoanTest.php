@@ -2,6 +2,7 @@
 namespace LendInvest\ModelTest;
 
 use LendInvest\Model\Loan;
+use LendInvest\Model\Tranche;
 
 /**
  * LoanTest
@@ -11,15 +12,29 @@ use LendInvest\Model\Loan;
  */
 class LoanTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTrancheInstance()
+    public function testLoanInstance()
     {
         $this->assertInstanceOf('LendInvest\Model\Loan', new Loan);
     }
 
-    public function testTrancheProperties()
+    public function testLoanProperties()
     {
         $this->assertClassHasAttribute('tranches', 'LendInvest\Model\Loan');
         $this->assertClassHasAttribute('startDate', 'LendInvest\Model\Loan');
         $this->assertClassHasAttribute('endDate', 'LendInvest\Model\Loan');
+    }
+
+    public function testTranchesCanBeAddedToLoan()
+    {
+        $loan = new Loan();
+
+        $this->assertFalse($loan->hasTranches());
+
+        $loan->addTranche(new Tranche());
+        $loan->addTranche(new Tranche());
+        $loan->addTranche(new Tranche());
+
+        $this->assertTrue($loan->hasTranches());
+        $this->assertEquals(3, count($loan->getTranches()));
     }
 }
