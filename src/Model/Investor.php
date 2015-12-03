@@ -9,7 +9,7 @@ use LendInvest\Model\Wallet;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Investor
+class Investor extends User implements EntityInterface
 {
     /**
      * @var \Lendinvest\Model\Wallet $wallet
