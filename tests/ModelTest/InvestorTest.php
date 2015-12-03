@@ -2,6 +2,7 @@
 namespace LendInvest\ModelTest;
 
 use LendInvest\Model\Investor;
+use LendInvest\Model\Wallet;
 
 /**
  * InvestorTest
@@ -24,5 +25,18 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
         $this->assertClassHasAttribute('city', 'LendInvest\Model\Investor');
         $this->assertClassHasAttribute('address', 'LendInvest\Model\Investor');
         $this->assertClassHasAttribute('wallet', 'LendInvest\Model\Investor');
+    }
+
+    public function testInvestorWalletInstance()
+    {
+        $investor = new Investor;
+        $this->assertFalse($investor->hasWallet());
+
+        $wallet = new Wallet;
+        $investor->setWallet($wallet);
+
+        $this->assertTrue($investor->hasWallet());
+        $this->assertInstanceOf('LendInvest\Model\Wallet', $investor->getWallet());
+
     }
 }
