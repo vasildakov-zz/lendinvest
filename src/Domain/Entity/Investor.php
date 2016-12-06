@@ -11,6 +11,14 @@ use LendInvest\Domain\Entity\Wallet;
  */
 final class Investor implements InvestorInterface
 {
+    private $name;
+
+    private $surname;
+
+    private $email;
+
+    private $address;
+
     /**
      * @var \Lendinvest\Model\Wallet $wallet
      */
@@ -23,6 +31,9 @@ final class Investor implements InvestorInterface
     }
 
 
+    /**
+     * @param Wallet $wallet
+     */
     public function addWallet(Wallet $wallet)
     {
         $this->wallets[] = $wallet;
@@ -30,9 +41,11 @@ final class Investor implements InvestorInterface
         return $this;
     }
 
-
-    public function hasWallet()
+    /**
+     * @param Wallets[]
+     */
+    public function getWallets()
     {
-        return !empty($this->wallets);
+        return $this->wallets;
     }
 }

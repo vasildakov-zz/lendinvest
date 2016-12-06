@@ -1,23 +1,27 @@
 <?php
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Type\Currency;
+
 /**
  * Wallet
  *
- * @package Lendinvest
+ * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
 final class Wallet implements WalletInterface
 {
+    private $currency;
+
     /**
      * @var integer $balance
      */
     private $balance = 0;
 
 
-    public function __construct()
+    public function __construct(Currency $currency)
     {
-        //
+        $this->currency = $currency;
     }
 
 

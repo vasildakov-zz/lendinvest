@@ -7,7 +7,7 @@ use LendInvest\Domain\Type\DateTime;
 /**
  * Loan
  *
- * @package Lendinvest
+ * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
 final class Loan implements LoanInterface

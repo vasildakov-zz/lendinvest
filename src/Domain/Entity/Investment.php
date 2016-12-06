@@ -8,7 +8,7 @@ use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
 
 /**
- * Investment
+ * Class LendInvest
  *
  * @package Lendinvest
  * @author Vasil Dakov <vasildakov@gmail.com>
@@ -51,7 +51,6 @@ final class Investment implements InvestmentInterface
     }
 
 
-
     /**
      * @param Investor $investor
      */
@@ -62,6 +61,7 @@ final class Investment implements InvestmentInterface
         return $this;
     }
 
+
     /**
      * @return Investor $investor
      */
@@ -69,6 +69,7 @@ final class Investment implements InvestmentInterface
     {
         return $this->investor;
     }
+
 
     /**
      * @param Tranche $tranche
@@ -79,6 +80,7 @@ final class Investment implements InvestmentInterface
 
         return $this;
     }
+
 
     /**
      * @return Tranche $tranche
