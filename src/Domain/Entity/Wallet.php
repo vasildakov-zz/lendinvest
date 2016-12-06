@@ -1,7 +1,9 @@
 <?php
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Type\Currency;
+use LendInvest\Domain\Type\Uuid;
 
 /**
  * Wallet
@@ -11,6 +13,10 @@ use LendInvest\Domain\Type\Currency;
  */
 final class Wallet implements WalletInterface
 {
+    private $id;
+
+    private $investor;
+
     private $currency;
 
     /**
@@ -19,8 +25,10 @@ final class Wallet implements WalletInterface
     private $balance = 0;
 
 
-    public function __construct(Currency $currency)
+    public function __construct(Uuid $id, Investor $investor, Currency $currency)
     {
+        $this->id = $id;
+        $this->investor = $investor;
         $this->currency = $currency;
     }
 

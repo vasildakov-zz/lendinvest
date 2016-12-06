@@ -35,9 +35,9 @@ final class Loan implements LoanInterface
 
 
     /**
-     * @param Uuid     $id        The starting date of the Loan
-     * @param DateTime $start     The starting date of the Loan
-     * @param DateTime $end       The ending date of the loan
+     * @param Uuid         $id
+     * @param DateTime     $startDate
+     * @param DateTime     $endDate
      */
     public function __construct(Uuid $id, DateTime $startDate, DateTime $endDate)
     {

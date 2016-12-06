@@ -12,15 +12,23 @@ use LendInvest\Domain\Entity\Wallet;
  */
 final class Investor implements InvestorInterface
 {
+    /**
+     * @var Uuid $id
+     */
     private $id;
+
 
     private $name;
 
+
     private $surname;
+
 
     private $email;
 
+
     private $address;
+
 
     /**
      * @var \Lendinvest\Model\Wallet $wallet
@@ -28,6 +36,9 @@ final class Investor implements InvestorInterface
     private $wallets;
 
 
+    /**
+     * @param Uuid $id
+     */
     public function __construct(Uuid $id)
     {
         $this->id = $id;
