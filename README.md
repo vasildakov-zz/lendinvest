@@ -1,6 +1,10 @@
 # LendInvest
 LendInvest Coding Test
 
+[![Build Status](https://travis-ci.org/vasildakov/LendInvest.svg?branch=master)](https://travis-ci.org/vasildakov/LendInvest)
+[![Coverage Status](https://coveralls.io/repos/github/vasildakov/LendInvest/badge.svg?branch=master)](https://coveralls.io/github/vasildakov/LendInvest?branch=master)
+
+
 ## Exercise
 In LendInvest we think everyone should have the opportunity to invest in property, which is why we’re disrupting the status quo. This is lending and investing without the banks. Mortgages simplified. We connect people who want to invest their money, with investments to those who want to borrow.
 
