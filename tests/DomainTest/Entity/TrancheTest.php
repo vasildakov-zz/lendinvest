@@ -1,11 +1,15 @@
 <?php
 namespace LendInvest\DomainTest\Entity;
 
-use Lendinvest\Model\Loan;
-use LendInvest\Model\Investor;
-use LendInvest\Model\Tranche;
-use LendInvest\Model\Investment;
-use LendInvest\Model\Interest;
+use LendInvest\Domain\Entity\Loan;
+use LendInvest\Domain\Entity\Investor;
+use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Entity\Investment;
+
+use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\Interest;
+use LendInvest\Domain\Type\DateTime;
+use LendInvest\Domain\Type\Money;
 
 /**
  * TrancheTest
@@ -15,19 +19,31 @@ use LendInvest\Model\Interest;
  */
 class TrancheTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTrancheInstance()
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanBeConstructed()
     {
-        $this->assertInstanceOf('LendInvest\Model\Tranche', new Tranche);
+        $tranche = new Tranche(Uuid::uuid4());
+
+        $this->assertInstanceOf(Tranche::class, $tranche);
     }
 
-    public function testTrancheProperties()
+    /**
+     * @test
+     * @group domain
+     */
+    public function itHasRequiredProperties()
     {
-        $this->assertClassHasAttribute('loan', 'LendInvest\Model\Tranche');
-        $this->assertClassHasAttribute('interest', 'LendInvest\Model\Tranche');
-        $this->assertClassHasAttribute('maxAmount', 'LendInvest\Model\Tranche');
-        $this->assertClassHasAttribute('investments', 'LendInvest\Model\Tranche');
-        $this->assertClassHasAttribute('createdAt', 'LendInvest\Model\Tranche');
+        $this->assertClassHasAttribute('id', Tranche::class);
+        $this->assertClassHasAttribute('loan', Tranche::class);
+        $this->assertClassHasAttribute('interest', Tranche::class);
+        $this->assertClassHasAttribute('maxAmount', Tranche::class);
+        $this->assertClassHasAttribute('investments', Tranche::class);
+        $this->assertClassHasAttribute('createdAt', Tranche::class);
     }
+
 
     public function testTrancheDoesNotHaveInvestments()
     {

@@ -15,7 +15,6 @@ class DateTime implements \JsonSerializable
 
     private $day;
 
-
     /**
      * @param [type] $year
      * @param [type] $month
@@ -56,6 +55,10 @@ class DateTime implements \JsonSerializable
         return $this->day;
     }
 
+    /**
+     * Returns string in format Y-m-d
+     * @return string
+     */
     public function __toString()
     {
         return sprintf('%s-%s-%s', $this->year, $this->month, $this->day);
@@ -64,9 +67,9 @@ class DateTime implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'year' => $this->year(),
+            'year'  => $this->year(),
             'month' => $this->month(),
-            'day' => $this->day(),
+            'day'   => $this->day(),
         ];
     }
 }

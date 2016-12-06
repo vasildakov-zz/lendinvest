@@ -12,26 +12,36 @@ use LendInvest\Domain\Entity\Wallet;
  */
 final class Investor implements InvestorInterface
 {
+
     /**
-     * @var Uuid $id
+     * @var \Lendinvest\Domain\Type\Uuid $id
      */
     private $id;
 
-
+    /**
+     * @var string $name
+     */
     private $name;
 
 
+    /**
+     * @var string $surname
+     */
     private $surname;
 
-
+    /**
+     * @var \Lendinvest\Domain\Type\Email $email
+     */
     private $email;
 
-
+    /**
+     * @var \Lendinvest\Domain\Type\Address $address
+     */
     private $address;
 
 
     /**
-     * @var \Lendinvest\Model\Wallet $wallet
+     * @var \Lendinvest\Domain\Entit\Wallet[] $wallets
      */
     private $wallets;
 

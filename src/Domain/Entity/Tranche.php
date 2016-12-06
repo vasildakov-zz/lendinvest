@@ -46,11 +46,13 @@ final class Tranche implements TrancheInterface
     private $createdAt;
 
 
-
+    /**
+     * @param Uuid $id
+     */
     public function __construct(Uuid $id)
     {
         $this->id = $id;
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt = DateTime::fromDateTime(new \DateTime());
     }
 
     /**
@@ -124,7 +126,7 @@ final class Tranche implements TrancheInterface
 
 
     /**
-     * @param \LendInvest\Model\Loan $loan
+     * @param Loan $loan
      */
     public function setLoan($loan)
     {
@@ -135,7 +137,7 @@ final class Tranche implements TrancheInterface
 
 
     /**
-     * @return \LendInvest\Model\Loan $loan
+     * @return Loan $loan
      */
     public function getLoan()
     {
@@ -144,7 +146,7 @@ final class Tranche implements TrancheInterface
 
 
     /**
-     * @param \LendInvest\Model\Interest $interest
+     * @param Interest $interest
      */
     public function setInterest($interest)
     {
@@ -155,7 +157,7 @@ final class Tranche implements TrancheInterface
 
 
     /**
-     * @return \LendInvest\Model\Interest $interest
+     * @return Interest $interest
      */
     public function getInterest()
     {
