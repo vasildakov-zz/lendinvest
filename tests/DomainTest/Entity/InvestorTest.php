@@ -15,15 +15,23 @@ use LendInvest\Domain\Type\Uuid;
  */
 class InvestorTest extends \PHPUnit_Framework_TestCase
 {
+    protected $gbp;
+    protected $eur;
+
+    protected function setUp()
+    {
+        $this->gbp = new Currency('GBP');
+        $this->eur = new Currency('EUR');
+    }
+
+
     /**
      * @test
      * @group domain
      */
     public function itCanBeConstructed()
     {
-        $investor = new Investor(
-            Uuid::uuid4()
-        );
+        $investor = new Investor(Uuid::uuid4());
 
         $this->assertInstanceOf(Investor::class, $investor);
     }
@@ -54,12 +62,16 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
 
         $investor->addWallet(
             new Wallet(
+                Uuid::uuid4(),
+                $investor,
                 new Currency('GBP')
             )
         );
 
         $investor->addWallet(
             new Wallet(
+                Uuid::uuid4(),
+                $investor,
                 new Currency('EUR')
             )
         );

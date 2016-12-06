@@ -1,6 +1,10 @@
 <?php
 namespace LendInvest\DomainTest\Entity;
 
+use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\Currency;
+
+use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Wallet;
 
 /**
@@ -11,15 +15,39 @@ use LendInvest\Domain\Entity\Wallet;
  */
 class WalletTest extends \PHPUnit_Framework_TestCase
 {
-    public function testWalletInstance()
+    protected $id;
+    protected $investor;
+    protected $currency;
+
+    protected function setUp()
     {
-        $this->assertInstanceOf('LendInvest\Model\Wallet', new Wallet);
+        $this->id = Uuid::uuid4();
+        $this->investor = new Investor(Uuid::uuid4());
+        $this->currency = new Currency('GBP');
     }
 
-    public function testWalletProperties()
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanBeConstructed()
     {
-        $this->assertClassHasAttribute('balance', 'LendInvest\Model\Wallet');
+        $wallet = new Wallet($this->id, $this->investor, $this->currency);
+
+        $this->assertInstanceOf(Wallet::class, $wallet);
     }
+
+    /**
+     * @test
+     * @group domain
+     */
+    public function itHasRequiredProperties()
+    {
+        $this->assertClassHasAttribute('id', Wallet::class);
+        $this->assertClassHasAttribute('investor', Wallet::class);
+        $this->assertClassHasAttribute('balance', Wallet::class);
+    }
+
 
 
     public function testInitialWalletBalanceIsZero()
