@@ -1,7 +1,11 @@
 <?php
-namespace LendInvest\ModelTest;
+namespace LendInvest\DomainTest;
 
-use LendInvest\Model\Investment;
+use LendInvest\Domain\Entity\Investment;
+use LendInvest\Domain\Entity\Investor;
+use LendInvest\Domain\Entity\Tranche;
+
+use LendInvest\Domain\Type\Money;
 
 /**
  * InvestmentTest
@@ -11,9 +15,19 @@ use LendInvest\Model\Investment;
  */
 class InvestmentTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTrancheInstance()
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanBeConstructed()
     {
-        $this->assertInstanceOf('LendInvest\Model\Investment', new Investment);
+        $investment = new Investment(
+            new Investor(),
+            new Tranche(),
+            new Money(100)
+        );
+
+        $this->assertInstanceOf(Investment::class, $investment);
     }
 
     public function testTrancheProperties()
