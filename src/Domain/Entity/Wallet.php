@@ -1,5 +1,5 @@
 <?php
-namespace LendInvest\Model;
+namespace LendInvest\Domain\Entity;
 
 /**
  * Wallet
@@ -7,7 +7,7 @@ namespace LendInvest\Model;
  * @package Lendinvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Wallet implements EntityInterface
+final class Wallet implements WalletInterface
 {
     /**
      * @var integer $balance

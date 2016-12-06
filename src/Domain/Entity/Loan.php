@@ -1,7 +1,8 @@
 <?php
-namespace Lendinvest\Model;
+namespace LendInvest\Domain\Entity;
 
-use Lendinvest\Model\Tranche;
+use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Type\DateTime;
 
 /**
  * Loan
@@ -9,7 +10,7 @@ use Lendinvest\Model\Tranche;
  * @package Lendinvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Loan implements EntityInterface
+final class Loan implements LoanInterface
 {
     /**
      * @var array $tranches
@@ -17,28 +18,36 @@ class Loan implements EntityInterface
     private $tranches;
 
     /**
-     * @var \DateTime $startDate
+     * @var \Lendinvest\Domain\Type\DateTime $startDate
      */
     private $startDate;
 
     /**
-     * @var \DateTime $endDate
+     * @var \Lendinvest\Domain\Type\DateTime $endDate
      */
     private $endDate;
 
 
-    public function __construct()
+    /**
+     * @param DateTime $startDate The starting date of the Loan
+     * @param DateTime $endDate   The ending date of the loan
+     */
+    public function __construct(DateTime $startDate, DateTime $endDate)
     {
+        $this->setStartDate($startDate);
+        $this->setEndDate($endDate);
+
         $this->tranches = [];
     }
 
     /**
-     * @param Tranche $tranche
+     * @param \LendInvest\Domain\Entity\Tranche $tranche
      */
     public function addTranche(Tranche $tranche)
     {
         $this->tranches[] = $tranche;
     }
+
 
     /**
      * @return array $tranches
@@ -61,13 +70,14 @@ class Loan implements EntityInterface
     /**
      * @param \DateTime $startDate
      */
-    public function setStartDate(\DateTime $startDate)
+    private function setStartDate(DateTime $startDate)
     {
         $this->startDate = $startDate;
 
         return $this;
     }
-    
+
+
     /**
      * @return \DateTime $startDate
      */
@@ -79,12 +89,13 @@ class Loan implements EntityInterface
     /**
      * @param \DateTime $endDate
      */
-    public function setEndDate(\DateTime $endDate)
+    private function setEndDate(DateTime $endDate)
     {
         $this->endDate = $endDate;
-        
+
         return $this;
     }
+
 
     /**
      * @return \DateTime $endDate
@@ -106,7 +117,7 @@ class Loan implements EntityInterface
         $year   =  $date->format('Y');
 
         $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        
+
         return $days;
     }
 }

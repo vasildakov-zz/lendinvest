@@ -1,25 +1,27 @@
 <?php
-namespace LendInvest\Model;
+namespace LendInvest\Domain\Entity;
 
-use LendInvest\Model\Loan;
-use LendInvest\Model\Investment;
-use LendInvest\Model\Interest;
+use LendInvest\Domain\Entity\Loan;
+use LendInvest\Domain\Entity\Investment;
+
+use LendInvest\Domain\Type\Interest;
+use LendInvest\Domain\Type\DateTime;
 
 /**
- * Tranche
+ * Class Tranche
  *
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Tranche implements EntityInterface
+final class Tranche implements TrancheInterface
 {
     /**
-     * @var \LendInvest\Model\Loan $loan
+     * @var \LendInvest\Domain\Entity\Loan $loan
      */
     private $loan;
 
     /**
-     * @var \LendInvest\Model\Interest $interest
+     * @var \LendInvest\Domain\Type\Interest $interest
      */
     private $interest;
 
