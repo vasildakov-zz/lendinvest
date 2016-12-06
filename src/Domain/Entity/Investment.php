@@ -4,6 +4,7 @@ namespace LendInvest\Domain\Entity;
 use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Tranche;
 
+use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
 
@@ -13,8 +14,13 @@ use LendInvest\Domain\Type\DateTime;
  * @package Lendinvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class Investment implements InvestmentInterface
+class Investment implements InvestmentInterface
 {
+    /**
+     * @var \LendInvest\Domain\Type\Uuid $id
+     */
+    private $id;
+
     /**
      * @var \Lendinvest\Domain\Entity\Investor $investor
      */
@@ -37,17 +43,37 @@ final class Investment implements InvestmentInterface
 
 
     /**
-     * @param Investor $investor
-     * @param Tranche  $tranche
-     * @param Money    $amount
+     * @param Uuid       $id
+     * @param Investor   $investor
+     * @param Tranche    $tranche
+     * @param Money      $amount
      */
-    public function __construct(Investor $investor, Tranche $tranche, Money $amount)
+    public function __construct(Uuid $id, Investor $investor, Tranche $tranche, Money $amount)
     {
+        $this->setId($id);
         $this->setInvestor($investor);
         $this->setTranche($tranche);
         $this->setAmount($amount);
 
         $this->createdAt = DateTime::fromDateTime(new \DateTime());
+    }
+
+    /**
+     * @param Uuid $id
+     */
+    private function setId(Uuid $id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return Uuid $id
+     */
+    public function getId() : Uuid
+    {
+        return $this->id;
     }
 
 
@@ -114,7 +140,7 @@ final class Investment implements InvestmentInterface
     /**
      * Return Investment earn ????
      */
-    public function getEarn()
+    /* public function getEarn()
     {
         $tranche = $this->getTranche();
         $rate = $tranche->getDailyInterestRate();
@@ -123,5 +149,5 @@ final class Investment implements InvestmentInterface
         $earn = ($this->amount * $rate / 100) * $days;
 
         return $earn;
-    }
+    }*/
 }

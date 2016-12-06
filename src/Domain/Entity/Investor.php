@@ -10,7 +10,7 @@ use LendInvest\Domain\Entity\Wallet;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class Investor implements InvestorInterface
+class Investor implements InvestorInterface
 {
 
     /**

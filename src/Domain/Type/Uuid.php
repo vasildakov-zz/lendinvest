@@ -7,7 +7,7 @@ namespace LendInvest\Domain\Type;
  *
  * Generates pseudo-random uuid
  */
-final class Uuid implements UuidInterface
+class Uuid implements UuidInterface
 {
     /**
      * Matches Uuid's versions 1 to 5.

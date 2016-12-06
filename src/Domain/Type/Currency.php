@@ -7,12 +7,18 @@ namespace LendInvest\Domain\Type;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Currency
+class Currency implements CurrencyInterface
 {
-    private $value; // currency code
+    private $code; // currency code
 
-    public function __construct($value)
+    public function __construct($code)
     {
-        $this->value = $value;
+        $this->code = $code;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
     }
 }
+

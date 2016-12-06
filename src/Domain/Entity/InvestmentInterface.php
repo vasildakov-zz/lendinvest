@@ -4,6 +4,7 @@ namespace LendInvest\Domain\Entity;
 use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Tranche;
 use LendInvest\Domain\Type\Money;
+use LendInvest\Domain\Type\Uuid;
 
 /**
  * Interface InvestmentInterface
@@ -13,6 +14,11 @@ use LendInvest\Domain\Type\Money;
  */
 interface InvestmentInterface
 {
+    /**
+     * @return Uuid
+     */
+    public function getId() : Uuid;
+
     /**
      * @return Investor
      */

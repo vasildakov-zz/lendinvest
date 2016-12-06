@@ -11,7 +11,7 @@ use LendInvest\Domain\Type\Uuid;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class Loan implements LoanInterface
+class Loan implements LoanInterface
 {
     /**
      * @var Uuid $id

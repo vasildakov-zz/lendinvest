@@ -7,7 +7,7 @@ namespace LendInvest\Domain\Type;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class Interest implements InterestInterface
+class Interest implements InterestInterface
 {
     /**
      * @var int $value

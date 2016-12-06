@@ -1,11 +1,8 @@
 <?php
 namespace LendInvest\DomainTest\Entity;
 
-use LendInvest\Domain\Type\Uuid;
-use LendInvest\Domain\Type\Currency;
-
-use LendInvest\Domain\Entity\Investor;
-use LendInvest\Domain\Entity\Wallet;
+use LendInvest\Domain\Type;
+use LendInvest\Domain\Entity;
 
 /**
  * WalletTest
@@ -18,12 +15,17 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     protected $id;
     protected $investor;
     protected $currency;
+    protected $money;
 
     protected function setUp()
     {
-        $this->id = Uuid::uuid4();
-        $this->investor = new Investor(Uuid::uuid4());
-        $this->currency = new Currency('GBP');
+        $this->id = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Uuid::class);
+
+        $this->investor = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Investor::class);
+
+        $this->currency = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Currency::class);
+
+        $this->money = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Money::class);
     }
 
     /**
@@ -32,9 +34,15 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $wallet = new Wallet($this->id, $this->investor, $this->currency);
+        $wallet = new Entity\Wallet($this->id, $this->investor, $this->currency);
 
-        $this->assertInstanceOf(Wallet::class, $wallet);
+        $this->assertInstanceOf(Entity\Wallet::class, $wallet);
+
+        $this->assertEquals($this->id, $wallet->getId());
+
+        $this->assertEquals($this->investor, $wallet->getInvestor());
+
+        $this->assertEquals($this->currency, $wallet->getCurrency());
     }
 
     /**
@@ -43,53 +51,44 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function itHasRequiredProperties()
     {
-        $this->assertClassHasAttribute('id', Wallet::class);
-        $this->assertClassHasAttribute('investor', Wallet::class);
-        $this->assertClassHasAttribute('balance', Wallet::class);
-    }
+        $this->assertClassHasAttribute('id', Entity\Wallet::class);
 
+        $this->assertClassHasAttribute('investor', Entity\Wallet::class);
 
-
-    public function testInitialWalletBalanceIsZero()
-    {
-        $wallet = new Wallet;
-        $this->assertEquals(0, $wallet->getBalance());
-    }
-
-
-    public function testCanDepositMoney()
-    {
-        $amount = 1000;
-
-        $wallet = new Wallet;
-        $wallet->depositMoney($amount);
-        $this->assertEquals($amount, $wallet->getBalance());
-    }
-
-
-    public function testCanWithdrawMoney()
-    {
-        $amount = 1000;
-
-        $wallet = new Wallet;
-        $wallet->depositMoney($amount);
-        $this->assertEquals($amount, $wallet->getBalance());
-
-        $wallet->withdrawMoney(300);
-        $this->assertEquals(700, $wallet->getBalance());
+        $this->assertClassHasAttribute('balance', Entity\Wallet::class);
     }
 
     /**
-     * @expectedException RuntimeException
+     * @test
+     * @group domain
      */
-    public function testWithdrawMoneyThrowsAnExpeptionOnNegativeBalance()
+    public function itCanDepositMoney()
     {
-        $amount = 300;
+        $wallet = new Entity\Wallet($this->id, $this->investor, new Type\Currency('GBP'));
 
-        $wallet = new Wallet;
-        $wallet->depositMoney($amount);
-        $this->assertEquals($amount, $wallet->getBalance());
+        $money = new Type\Money(120, 'GBP');
 
-        $wallet->withdrawMoney(500);
+        $wallet->deposit($money);
+
+        self::assertEquals(120, $wallet->getBalance()->getAmount());
+
+        self::assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
+    }
+
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanWithdrawMoney()
+    {
+        $wallet = new Entity\Wallet($this->id, $this->investor, new Type\Currency('GBP'));
+
+        $wallet->deposit(new Type\Money(100, 'GBP'));
+
+        $wallet->withdraw(new Type\Money(70, 'GBP'));
+
+        self::assertEquals(30, $wallet->getBalance()->getAmount());
+
+        self::assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
     }
 }

@@ -5,7 +5,9 @@ use LendInvest\Domain\Entity\Loan;
 use LendInvest\Domain\Entity\Investment;
 
 use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
+use LendInvest\Domain\Type\Interest;
 
 /**
  * Class Tranche
@@ -13,7 +15,7 @@ use LendInvest\Domain\Type\DateTime;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class Tranche implements TrancheInterface
+class Tranche implements TrancheInterface
 {
     /**
      * @var Uuid $id
@@ -31,9 +33,9 @@ final class Tranche implements TrancheInterface
     private $interest;
 
     /**
-     * @var float $maxAmount
+     * @var \LendInvest\Domain\Type\Money $amount
      */
-    private $maxAmount;
+    private $amount;
 
     /**
      * @var array $investments
@@ -49,29 +51,87 @@ final class Tranche implements TrancheInterface
     /**
      * @param Uuid $id
      */
-    public function __construct(Uuid $id)
+    public function __construct(Uuid $id, Loan $loan, Money $amount, Interest $interest)
     {
-        $this->id = $id;
+        $this->setId($id);
+        $this->setLoan($loan);
+        $this->setAmount($amount);
+        $this->setInterest($interest);
+
         $this->createdAt = DateTime::fromDateTime(new \DateTime());
     }
 
-    /**
-     * @param float $maxAmount
-     */
-    public function setMaxAmount($maxAmount)
+    private function setId(Uuid $id)
     {
-        $this->maxAmount = $maxAmount;
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return Uuid $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param Loan $loan
+     */
+    private function setLoan($loan)
+    {
+        $this->loan = $loan;
 
         return $this;
     }
 
 
     /**
-     * @return float $maxAmount
+     * @return Loan $loan
      */
-    public function getMaxAmount()
+    public function getLoan() : Loan
     {
-        return $this->maxAmount;
+        return $this->loan;
+    }
+
+
+    /**
+     * @param Interest $interest
+     */
+    private function setInterest(Interest $interest)
+    {
+        $this->interest = $interest;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Interest $interest
+     */
+    public function getInterest() : Interest
+    {
+        return $this->interest;
+    }
+
+    /**
+     * @param float $maxAmount
+     */
+    private function setAmount(Money $amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+
+    /**
+     * @return float $amount
+     */
+    public function getAmount() : Money
+    {
+        return $this->amount;
     }
 
 
@@ -124,45 +184,6 @@ final class Tranche implements TrancheInterface
         $this->investments[] = $investment;
     }
 
-
-    /**
-     * @param Loan $loan
-     */
-    public function setLoan($loan)
-    {
-        $this->loan = $loan;
-
-        return $this;
-    }
-
-
-    /**
-     * @return Loan $loan
-     */
-    public function getLoan()
-    {
-        return $this->loan;
-    }
-
-
-    /**
-     * @param Interest $interest
-     */
-    public function setInterest($interest)
-    {
-        $this->interest = $interest;
-
-        return $this;
-    }
-
-
-    /**
-     * @return Interest $interest
-     */
-    public function getInterest()
-    {
-        return $this->interest;
-    }
 
 
     /**
