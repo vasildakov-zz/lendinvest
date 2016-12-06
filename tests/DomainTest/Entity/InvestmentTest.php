@@ -5,6 +5,7 @@ use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Tranche;
 
+use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\Currency;
 
@@ -23,8 +24,8 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
     public function itCanBeConstructed()
     {
         $investment = new Investment(
-            new Investor(),
-            new Tranche(),
+            new Investor(Uuid::uuid4()),
+            new Tranche(Uuid::uuid4()),
             new Money(100, new Currency('GBP'))
         );
 

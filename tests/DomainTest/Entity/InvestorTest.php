@@ -5,6 +5,7 @@ use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Wallet;
 
 use LendInvest\Domain\Type\Currency;
+use LendInvest\Domain\Type\Uuid;
 
 /**
  * InvestorTest
@@ -20,7 +21,9 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $investor = new Investor();
+        $investor = new Investor(
+            Uuid::uuid4()
+        );
 
         $this->assertInstanceOf(Investor::class, $investor);
     }
@@ -45,10 +48,21 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanAddWalletsWithDifferentCurrencies()
     {
-        $investor = new Investor();
+        $investor = new Investor(
+            Uuid::uuid4()
+        );
 
-        $investor->addWallet(new Wallet(new Currency('GBP')));
-        $investor->addWallet(new Wallet(new Currency('EUR')));
+        $investor->addWallet(
+            new Wallet(
+                new Currency('GBP')
+            )
+        );
+
+        $investor->addWallet(
+            new Wallet(
+                new Currency('EUR')
+            )
+        );
 
         $this->assertEquals(2, count($investor->getWallets()));
     }
