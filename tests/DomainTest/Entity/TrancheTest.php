@@ -1,5 +1,5 @@
 <?php
-namespace LendInvest\ModelTest;
+namespace LendInvest\DomainTest\Entity;
 
 use Lendinvest\Model\Loan;
 use LendInvest\Model\Investor;

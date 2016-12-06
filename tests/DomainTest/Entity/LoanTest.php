@@ -1,5 +1,5 @@
 <?php
-namespace LendInvest\DomainTest;
+namespace LendInvest\DomainTest\Entity;
 
 use LendInvest\Domain\Entity\Loan;
 use LendInvest\Domain\Entity\Tranche;

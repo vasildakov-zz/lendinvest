@@ -1,7 +1,7 @@
 <?php
-namespace LendInvest\ModelTest;
+namespace LendInvest\DomainTest\Entity;
 
-use LendInvest\Model\Wallet;
+use LendInvest\Domain\Entity\Wallet;
 
 /**
  * WalletTest
