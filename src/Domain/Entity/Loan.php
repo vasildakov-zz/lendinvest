@@ -3,6 +3,7 @@ namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Tranche;
 use LendInvest\Domain\Type\DateTime;
+use LendInvest\Domain\Type\Uuid;
 
 /**
  * Loan
@@ -12,6 +13,11 @@ use LendInvest\Domain\Type\DateTime;
  */
 final class Loan implements LoanInterface
 {
+    /**
+     * @var Uuid $id
+     */
+    private $id;
+
     /**
      * @var array $tranches
      */
@@ -29,11 +35,13 @@ final class Loan implements LoanInterface
 
 
     /**
-     * @param DateTime $startDate The starting date of the Loan
-     * @param DateTime $endDate   The ending date of the loan
+     * @param Uuid     $id        The starting date of the Loan
+     * @param DateTime $start     The starting date of the Loan
+     * @param DateTime $end       The ending date of the loan
      */
-    public function __construct(DateTime $startDate, DateTime $endDate)
+    public function __construct(Uuid $id, DateTime $startDate, DateTime $endDate)
     {
+        $this->id = $id;
         $this->setStartDate($startDate);
         $this->setEndDate($endDate);
 

@@ -1,6 +1,7 @@
 <?php
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Entity\Wallet;
 
 /**
@@ -11,6 +12,8 @@ use LendInvest\Domain\Entity\Wallet;
  */
 final class Investor implements InvestorInterface
 {
+    private $id;
+
     private $name;
 
     private $surname;
@@ -25,8 +28,9 @@ final class Investor implements InvestorInterface
     private $wallets;
 
 
-    public function __construct()
+    public function __construct(Uuid $id)
     {
+        $this->id = $id;
         $this->wallets = [];
     }
 

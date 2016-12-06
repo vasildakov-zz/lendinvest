@@ -4,7 +4,7 @@ namespace LendInvest\Domain\Entity;
 use LendInvest\Domain\Entity\Loan;
 use LendInvest\Domain\Entity\Investment;
 
-use LendInvest\Domain\Type\Interest;
+use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\DateTime;
 
 /**
@@ -15,6 +15,11 @@ use LendInvest\Domain\Type\DateTime;
  */
 final class Tranche implements TrancheInterface
 {
+    /**
+     * @var Uuid $id
+     */
+    private $id;
+
     /**
      * @var \LendInvest\Domain\Entity\Loan $loan
      */
@@ -42,8 +47,9 @@ final class Tranche implements TrancheInterface
 
 
 
-    public function __construct()
+    public function __construct(Uuid $id)
     {
+        $this->id = $id;
         $this->createdAt = new \DateTime('now');
     }
 
