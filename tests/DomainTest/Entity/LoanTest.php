@@ -19,13 +19,13 @@ class LoanTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->id = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Uuid::class);
+        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
 
-        $this->tranche = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Tranche::class);
+        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)->disableOriginalConstructor()->getMock();
 
-        $this->start = $this->getMockWithoutInvokingTheOriginalConstructor(Type\DateTime::class);
+        $this->start = $this->getMockBuilder(Type\DateTime::class)->disableOriginalConstructor()->getMock();
 
-        $this->end = $this->getMockWithoutInvokingTheOriginalConstructor(Type\DateTime::class);
+        $this->end = $this->getMockBuilder(Type\DateTime::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

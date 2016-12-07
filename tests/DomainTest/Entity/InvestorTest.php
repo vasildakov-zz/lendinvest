@@ -17,9 +17,9 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->id = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Uuid::class);
+        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
 
-        $this->wallet = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Wallet::class);
+        $this->wallet = $this->getMockBuilder(Entity\Wallet::class)->disableOriginalConstructor()->getMock();
     }
 
 

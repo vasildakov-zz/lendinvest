@@ -19,13 +19,13 @@ class WalletTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->id = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Uuid::class);
+        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
 
-        $this->investor = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Investor::class);
+        $this->investor = $this->getMockBuilder(Entity\Investor::class)->disableOriginalConstructor()->getMock();
 
-        $this->currency = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Currency::class);
+        $this->currency = $this->getMockBuilder(Type\Currency::class)->disableOriginalConstructor()->getMock();
 
-        $this->money = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Money::class);
+        $this->money = $this->getMockBuilder(Type\Money::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

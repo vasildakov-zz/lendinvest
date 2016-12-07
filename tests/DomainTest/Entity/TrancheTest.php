@@ -20,13 +20,13 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->id = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Uuid::class);
+        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
 
-        $this->loan = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Loan::class);
+        $this->loan = $this->getMockBuilder(Entity\Loan::class)->disableOriginalConstructor()->getMock();
 
-        $this->available = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Money::class);
+        $this->available = $this->getMockBuilder(Type\Money::class)->disableOriginalConstructor()->getMock();
 
-        $this->interest = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Interest::class);
+        $this->interest = $this->getMockBuilder(Type\Interest::class)->disableOriginalConstructor()->getMock();
     }
 
 
