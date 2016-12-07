@@ -2,13 +2,15 @@
 namespace LendInvest\Domain\Type;
 
 /**
- * Class Money
+ * Class DateTime
  *
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
 class DateTime implements \JsonSerializable
 {
+    const DATE_YMD = "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/";
+
     private $year;
 
     private $month;
@@ -20,12 +22,18 @@ class DateTime implements \JsonSerializable
      * @param [type] $month
      * @param [type] $day
      */
+    //public function __construct(Year $year, Month $month, Day $day)
     public function __construct($year, $month, $day)
     {
+        if (!isset($year) || !isset($month) || !isset($day)) {
+            throw new \InvalidArgumentException();
+        }
+
         $this->year  = $year;
         $this->month = $month;
         $this->day   = $day;
     }
+
 
     /**
      * @param  \DateTime $datetime
@@ -33,12 +41,27 @@ class DateTime implements \JsonSerializable
      */
     public static function fromDateTime(\DateTime $datetime)
     {
-        return new static(
-            $datetime->format('Y'),
-            $datetime->format('m'),
-            $datetime->format('d')
-        );
+        list($year, $month, $date) = explode("-", $datetime->format('Y-m-d'));
+
+        return new static($year, $month, $date);
     }
+
+
+    /**
+     * @param  string $datetime in format Y-m-d
+     * @return static
+     */
+    public static function fromString(string $string)
+    {
+        if (!preg_match(self::DATE_YMD, $string)) {
+            throw new \InvalidArgumentException();
+        }
+
+        list($year, $month, $date) = explode("-", $string);
+
+        return new static($year, $month, $date);
+    }
+
 
     public function year()
     {

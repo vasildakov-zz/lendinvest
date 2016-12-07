@@ -28,10 +28,29 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanCreateFromPhpDatetime()
     {
+
         $datetime = DateTime::fromDateTime(new \DateTime);
 
         $this->assertInstanceOf(DateTime::class, $datetime);
     }
+
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanCreateFromString()
+    {
+        $datetime = DateTime::fromString('2016-09-25');
+
+        $this->assertInstanceOf(DateTime::class, $datetime);
+
+        $this->assertEquals('2016', $datetime->year());
+
+        $this->assertEquals('09', $datetime->month());
+
+        $this->assertEquals('25', $datetime->day());
+    }
+
 
     /**
      * @test
