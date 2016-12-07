@@ -24,7 +24,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
 
         $this->loan = $this->getMockWithoutInvokingTheOriginalConstructor(Entity\Loan::class);
 
-        $this->amount = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Money::class);
+        $this->available = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Money::class);
 
         $this->interest = $this->getMockWithoutInvokingTheOriginalConstructor(Type\Interest::class);
     }
@@ -36,7 +36,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $tranche = new Entity\Tranche($this->id,  $this->loan, $this->amount, $this->interest);
+        $tranche = new Entity\Tranche($this->id, $this->loan, $this->available, $this->interest);
 
         $this->assertInstanceOf(Entity\Tranche::class, $tranche);
 
@@ -44,7 +44,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->loan, $tranche->getLoan());
 
-        $this->assertEquals($this->amount, $tranche->getAmount());
+        $this->assertEquals($this->available, $tranche->getAvailable());
 
         $this->assertEquals($this->interest, $tranche->getInterest());
     }
@@ -61,7 +61,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertClassHasAttribute('interest', Entity\Tranche::class);
 
-        $this->assertClassHasAttribute('amount', Entity\Tranche::class);
+        $this->assertClassHasAttribute('available', Entity\Tranche::class);
 
         $this->assertClassHasAttribute('investments', Entity\Tranche::class);
 
@@ -87,7 +87,7 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
              ->willReturn(6)
         ;
 
-        $tranche = new Entity\Tranche($this->id,  $this->loan, $this->amount, $this->interest);
+        $tranche = new Entity\Tranche($this->id, $this->loan, $this->available, $this->interest);
 
         self::assertEquals(0.1875, $tranche->getDailyInterest());
     }

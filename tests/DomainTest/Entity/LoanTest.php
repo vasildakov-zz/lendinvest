@@ -4,7 +4,6 @@ namespace LendInvest\DomainTest\Entity;
 use LendInvest\Domain\Entity;
 use LendInvest\Domain\Type;
 
-
 /**
  * LoanTest
  *
@@ -82,5 +81,4 @@ class LoanTest extends \PHPUnit_Framework_TestCase
 
         var_dump($loan->getNumberOfDays());
     }
-
 }

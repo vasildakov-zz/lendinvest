@@ -3,6 +3,7 @@ namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Entity\Wallet;
+use LendInvest\Domain\Entity\Investment;
 
 /**
  * Investor
@@ -47,14 +48,22 @@ class Investor implements InvestorInterface
 
 
     /**
+     * @var \Lendinvest\Domain\Entit\Investment[] $investments
+     */
+    private $investments;
+
+
+    /**
      * @param Uuid $id
      */
     public function __construct(Uuid $id)
     {
         $this->setId($id);
 
+        $this->investments = [];
         $this->wallets = [];
     }
+
 
     /**
      * @param Uuid $id
@@ -73,6 +82,18 @@ class Investor implements InvestorInterface
     {
         return $this->id;
     }
+
+
+    /**
+     * @param  Investment $investment
+     */
+    public function invest(Investment $investment)
+    {
+        // new Investment($id, $investor, $tranche, $amount)
+        $this->investments[] = $investment;
+    }
+
+
 
     /**
      * @param Wallet $wallet

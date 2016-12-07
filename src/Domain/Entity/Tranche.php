@@ -33,9 +33,9 @@ class Tranche implements TrancheInterface
     private $interest;
 
     /**
-     * @var \LendInvest\Domain\Type\Money $amount
+     * @var \LendInvest\Domain\Type\Money $available
      */
-    private $amount;
+    private $available;
 
     /**
      * @var array $investments
@@ -51,11 +51,11 @@ class Tranche implements TrancheInterface
     /**
      * @param Uuid $id
      */
-    public function __construct(Uuid $id, Loan $loan, Money $amount, Interest $interest)
+    public function __construct(Uuid $id, Loan $loan, Money $available, Interest $interest)
     {
         $this->setId($id);
         $this->setLoan($loan);
-        $this->setAmount($amount);
+        $this->setAvailable($available);
         $this->setInterest($interest);
 
         $this->createdAt = DateTime::fromDateTime(new \DateTime());
@@ -121,22 +121,22 @@ class Tranche implements TrancheInterface
     }
 
     /**
-     * @param float $maxAmount
+     * @param Money $available
      */
-    private function setAmount(Money $amount)
+    private function setAvailable(Money $available)
     {
-        $this->amount = $amount;
+        $this->available = $available;
 
         return $this;
     }
 
 
     /**
-     * @return float $amount
+     * @return Money $available
      */
-    public function getAmount() : Money
+    public function getAvailable() : Money
     {
-        return $this->amount;
+        return $this->available;
     }
 
 

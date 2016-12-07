@@ -21,4 +21,3 @@ class Currency implements CurrencyInterface
         return $this->code;
     }
 }
-
