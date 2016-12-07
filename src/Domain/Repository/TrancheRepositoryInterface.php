@@ -2,6 +2,7 @@
 namespace LendInvest\Domain\Repository;
 
 use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Entity\Loan;
 
 /**
  * Interface TrancheRepositoryInterface
@@ -15,4 +16,7 @@ interface TrancheRepositoryInterface
      * @return Tranche
      */
     public function find(Uuid $id) : Tranche;
+
+
+    public function findByLoan(Loan $loan);
 }
