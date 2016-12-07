@@ -135,30 +135,25 @@ class Tranche implements TrancheInterface
     }
 
 
+    public function getDailyInterest()
+    {
+        $interest = $this->interest->getValue();
+
+        $days = $this->loan->getNumberOfDays();
+
+        return round($interest / $days, 4);
+    }
+
+
     /**
      * Returns current investments amount
      * @return int $amount
      */
     public function getCurrentAmount()
     {
-        $amount = 0;
 
-        if (!empty($this->investments)) {
-            foreach ($this->investments as $investment) {
-                $amount += $investment->getAmount();
-            }
-        }
-        return $amount;
     }
 
-
-    /**
-     * @return boolean  Returns false if Tranche does not have Investments
-     */
-    public function hasInvestments()
-    {
-        return !empty($this->investments);
-    }
 
 
     /**
@@ -175,28 +170,6 @@ class Tranche implements TrancheInterface
      */
     public function addInvestment(Investment $investment)
     {
-        $currentAmount = $this->getCurrentAmount();
-        $investmentAmount = $investment->getAmount();
-        if ($currentAmount + $investmentAmount > $this->getMaxAmount()) {
-            throw new \RuntimeException;
-        }
-
         $this->investments[] = $investment;
-    }
-
-
-
-    /**
-     * @return float  Returns daily interest rate
-     */
-    public function getDailyInterestRate()
-    {
-        $loan = $this->getLoan();
-        $interest = $this->getInterest();
-
-        $percentage = $interest->getPercentage();
-        $days = $loan->getNumberOfDays();
-
-        return round($percentage / $days, 2);
     }
 }

@@ -113,19 +113,16 @@ class Loan implements LoanInterface
         return $this->endDate;
     }
 
+
     /**
      * Returns the number of days
      * @return int  $days
      */
     public function getNumberOfDays()
     {
-        $date = $this->getStartDate();
+        $start = (new \DateTime('2016-12-01'));
+        $end   = (new \DateTime('2017-01-01'))->modify('+ 1 day');
 
-        $month = $date->format('m');
-        $year   =  $date->format('Y');
-
-        $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
-        return $days;
+        return $start->diff($end)->days;
     }
 }
