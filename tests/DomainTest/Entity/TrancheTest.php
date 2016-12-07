@@ -67,4 +67,28 @@ class TrancheTest extends \PHPUnit_Framework_TestCase
 
         $this->assertClassHasAttribute('createdAt', Entity\Tranche::class);
     }
+
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanReturnDailyInterest()
+    {
+
+        $this->loan
+             ->expects($this->once())
+             ->method('getNumberOfDays')
+             ->willReturn(32)
+        ;
+
+        $this->interest
+             ->expects($this->once())
+             ->method('getValue')
+             ->willReturn(6)
+        ;
+
+        $tranche = new Entity\Tranche($this->id,  $this->loan, $this->amount, $this->interest);
+
+        self::assertEquals(0.1875, $tranche->getDailyInterest());
+    }
 }

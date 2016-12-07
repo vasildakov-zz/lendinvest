@@ -50,6 +50,10 @@ class LoanTest extends \PHPUnit_Framework_TestCase
         $loan = new Entity\Loan($this->id, $this->start, $this->end);
 
         $this->assertInstanceOf(Entity\Loan::class, $loan);
+
+        $this->assertEquals($this->start, $loan->getStartDate());
+
+        $this->assertEquals($this->end, $loan->getEndDate());
     }
 
 
@@ -64,6 +68,19 @@ class LoanTest extends \PHPUnit_Framework_TestCase
         $loan->addTranche($this->tranche);
 
         $this->assertTrue($loan->hasTranches());
+
         $this->assertEquals(1, count($loan->getTranches()));
     }
+
+    /**
+     * @test
+     * @group domain
+     */
+    public function itCanReturnTheIntervalBetweenStartingAndEndingDates()
+    {
+        $loan = new Entity\Loan($this->id, $this->start, $this->end);
+
+        var_dump($loan->getNumberOfDays());
+    }
+
 }

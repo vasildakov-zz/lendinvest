@@ -17,7 +17,10 @@ class InterestTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $this->assertInstanceOf(Interest::class, new Interest(6));
+        $interest = new Interest(6);
+
+        $this->assertInstanceOf(Interest::class, $interest);
+        $this->assertEquals(6, $interest->getValue());
     }
 
     /**
