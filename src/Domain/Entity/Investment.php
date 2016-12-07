@@ -22,12 +22,12 @@ class Investment implements InvestmentInterface
     private $id;
 
     /**
-     * @var \Lendinvest\Domain\Entity\Investor $investor
+     * @var \LendInvest\Domain\Entity\Investor $investor
      */
     private $investor;
 
     /**
-     * @var \Lendinvest\Domain\Entity\Tranche $tranche
+     * @var \LendInvest\Domain\Entity\Tranche $tranche
      */
     private $tranche;
 

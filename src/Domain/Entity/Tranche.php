@@ -61,6 +61,10 @@ class Tranche implements TrancheInterface
         $this->createdAt = DateTime::fromDateTime(new \DateTime());
     }
 
+
+    /**
+     * @param Uuid $id
+     */
     private function setId(Uuid $id)
     {
         $this->id = $id;
@@ -68,10 +72,11 @@ class Tranche implements TrancheInterface
         return $this;
     }
 
+
     /**
      * @return Uuid $id
      */
-    public function getId()
+    public function getId() : Uuid
     {
         return $this->id;
     }
@@ -151,7 +156,7 @@ class Tranche implements TrancheInterface
      */
     public function getCurrentAmount()
     {
-
+        //
     }
 
 

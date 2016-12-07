@@ -1,6 +1,8 @@
 <?php
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Entity\Tranche;
+
 /**
  * Interface LoanInterface
  *
@@ -9,5 +11,9 @@ namespace LendInvest\Domain\Entity;
  */
 interface LoanInterface
 {
-    //
+    /**
+     * @param Tranche $tranche
+     * @return void
+     */
+    public function addTranche(Tranche $tranche);
 }

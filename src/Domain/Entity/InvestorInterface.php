@@ -1,6 +1,9 @@
 <?php
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Entity\Wallet;
+
 /**
  * Interface InvestorInterface
  *
@@ -9,5 +12,18 @@ namespace LendInvest\Domain\Entity;
  */
 interface InvestorInterface
 {
-    //
+    /**
+     * @return Uuid
+     */
+    public function getId() : Uuid;
+
+    /**
+     * @return Wallet
+     */
+    public function addWallet(Wallet $wallet);
+
+    /**
+     * @return array
+     */
+    public function getWallets();
 }
