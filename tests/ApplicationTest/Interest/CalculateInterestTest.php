@@ -8,7 +8,6 @@ use LendInvest\Application\Interest\CalculateInterestRequest;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Repository\TrancheRepositoryInterface;
 
-
 /**
  * InvestmentTest
  *
