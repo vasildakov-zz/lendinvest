@@ -12,11 +12,14 @@ use LendInvest\Domain\Entity\Loan;
 interface TrancheRepositoryInterface
 {
     /**
-     * @param  Uuid $id
+     * @param  Uuid $id The id of the tranche
      * @return Tranche
      */
-    public function find(Uuid $id) : Tranche;
+    public function find($id);
 
-
-    public function findByLoan(Loan $loan);
+    /**
+     * @param  Uuid   $id The id of the loan
+     * @return array
+     */
+    public function findByLoan($id);
 }

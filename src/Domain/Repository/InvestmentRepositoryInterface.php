@@ -16,8 +16,8 @@ interface InvestmentRepositoryInterface
      * @param  Uuid $id
      * @return Investment
      */
-    public function find(Uuid $id) : Investment;
+    public function find($id);
 
 
-    public function findByInvestor(Investor $investor);
+    public function findByInvestor($id);
 }
