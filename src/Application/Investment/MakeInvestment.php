@@ -1,5 +1,5 @@
 <?php
-namespace LendInvest\Application;
+namespace LendInvest\Application\Investment;
 
 /**
  * Class MakeInvestment
