@@ -101,8 +101,6 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
 
     private function getTranches()
     {
-        return [
-            new Entity\Tranche()
-        ];
+        return [];
     }
 }
