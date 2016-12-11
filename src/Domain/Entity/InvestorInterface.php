@@ -15,7 +15,7 @@ interface InvestorInterface
     /**
      * @return Uuid
      */
-    public function getId();
+    public function getId() : Uuid;
 
     /**
      * @return Wallet

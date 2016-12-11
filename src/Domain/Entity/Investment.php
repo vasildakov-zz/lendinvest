@@ -139,6 +139,25 @@ class Investment implements InvestmentInterface
 
 
     /**
+     * Guard
+     *
+     * @param  Money  $money
+     * @return boolean
+     * @codeCoverageIgnore
+     */
+    private function assertSameCurrency(Money $money)
+    {
+        $currency = $money->getCurrency();
+    
+        if ($this->amount->getCurrency()->equals($currency)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Return Investment earn ????
      */
     /* public function getEarn()

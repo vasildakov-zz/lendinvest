@@ -2,6 +2,7 @@
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Type\Currency;
 use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Type\Uuid;
 
@@ -17,6 +18,11 @@ class Loan implements LoanInterface
      * @var Uuid $id
      */
     private $id;
+
+    /**
+     * @var \LendInvest\Domain\Type\Currency $currency
+     */
+    private $currency;
 
     /**
      * @var array $tranches
@@ -36,16 +42,56 @@ class Loan implements LoanInterface
 
     /**
      * @param Uuid         $id
+     * @param Currency     $currency
      * @param DateTime     $startDate
      * @param DateTime     $endDate
      */
-    public function __construct(Uuid $id, DateTime $startDate, DateTime $endDate)
+    public function __construct(Uuid $id, Currency $currency, DateTime $startDate, DateTime $endDate)
     {
-        $this->id = $id;
+        $this->setId($id);
+        $this->setCurrency($currency);
         $this->setStartDate($startDate);
         $this->setEndDate($endDate);
 
         $this->tranches = [];
+    }
+
+    /**
+     * @param Uuid $id
+     */
+    private function setId(Uuid $id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Uuid $id
+     */
+    public function getId() : Uuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param Currency $currency
+     */
+    private function setCurrency(Currency $currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Currency $currency
+     */
+    public function getCurrency() : Currency
+    {
+        return $this->currency;
     }
 
     /**

@@ -17,11 +17,6 @@ class Interest implements InterestInterface
 
     public function __construct($value)
     {
-        /* $value = \filter_var($value, FILTER_VALIDATE_FLOAT);
-        if (false === $value) {
-            throw new InvalidNativeArgumentException($value, array('float'));
-        } */
-
         if (!is_int($value)) {
             throw new \InvalidArgumentException;
         }
