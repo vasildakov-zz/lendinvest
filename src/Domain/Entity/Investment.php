@@ -3,6 +3,7 @@ namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Entity\Investor;
 
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;

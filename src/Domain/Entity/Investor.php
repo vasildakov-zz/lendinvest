@@ -78,7 +78,7 @@ class Investor implements InvestorInterface
     /**
      * @return Uuid $id
      */
-    public function getId() : Uuid
+    public function getId()
     {
         return $this->id;
     }

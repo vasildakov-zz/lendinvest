@@ -15,7 +15,7 @@ interface InvestorInterface
     /**
      * @return Uuid
      */
-    public function getId() : Uuid;
+    public function getId();
 
     /**
      * @return Wallet
@@ -23,7 +23,7 @@ interface InvestorInterface
     public function addWallet(Wallet $wallet);
 
     /**
-     * @return array
+     * @return Wallet[]
      */
     public function getWallets();
 }
