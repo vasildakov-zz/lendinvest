@@ -25,6 +25,16 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group domain
+     * @expectedException \InvalidArgumentException
+     */
+    public function itCanThrowAnExceptionForInvalidConstructorArgs()
+    {
+        $datetime = new DateTime(null, '12', '06');
+    }
+
+    /**
+     * @test
+     * @group domain
      */
     public function itCanCreateFromPhpDatetime()
     {
@@ -49,6 +59,16 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('09', $datetime->month());
 
         $this->assertEquals('25', $datetime->day());
+    }
+
+    /**
+     * @test
+     * @group domain
+     * @expectedException \InvalidArgumentException
+     */
+    public function itCanThrowAnExceptionForInvalidString()
+    {
+        $datetime = DateTime::fromString('25/09/2016');
     }
 
 
