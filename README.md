@@ -35,5 +35,5 @@ pounds amount available.
 - As “Investor 4” I’d like to invest 1,100 pounds on the tranche “B” 25/10/2015: “exception”.
 - On 01/11/2015 the system runs the interest calculation for the period 01/10/2015 ->
 31/10/2015:
-- “Investor 1” earns 28.06 pounds
-- “Investor 3” earns 21.29 pounds
+- “Investor 1” earns **28.06** pounds
+- “Investor 3” earns **21.29** pounds
