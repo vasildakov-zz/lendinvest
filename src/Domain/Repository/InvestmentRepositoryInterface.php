@@ -20,4 +20,6 @@ interface InvestmentRepositoryInterface
 
 
     public function findByInvestor($id);
+
+    public function findByPeriod($start, $end);
 }

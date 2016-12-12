@@ -1,9 +1,9 @@
 <?php
-namespace LendInvest\ApplicationTest\Loan;
+namespace LendInvest\ApplicationTest\Interest;
 
-use LendInvest\Application\Loan\CalculateInterestInterface;
-use LendInvest\Application\Loan\CalculateInterest;
-use LendInvest\Application\Loan\CalculateInterestRequest;
+use LendInvest\Application\Interest\CalculateInterestInterface;
+use LendInvest\Application\Interest\CalculateInterest;
+use LendInvest\Application\Interest\CalculateInterestRequest;
 
 use LendInvest\Domain\Entity;
 use LendInvest\Domain\Type;
@@ -27,15 +27,11 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->loans    = $this->getMockBuilder(Repository\LoanRepositoryInterface::class)
+        $this->investments  = $this->getMockBuilder(Repository\InvestmentRepositoryInterface::class)
                                ->disableOriginalConstructor()
                                ->getMock()
         ;
 
-        $this->tranches = $this->getMockBuilder(Repository\TranchesRepositoryInterface::class)
-                               ->disableOriginalConstructor()
-                               ->getMock()
-        ;
 
         $this->request  = $this->getMockBuilder(CalculateInterestRequest::class)
                                ->disableOriginalConstructor()
@@ -60,7 +56,7 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $service = new CalculateInterest($this->loans, $this->tranches);
+        $service = new CalculateInterest($this->investments);
 
         self::assertInstanceOf(CalculateInterestInterface::class, $service);
     }
@@ -72,34 +68,36 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanCalculateInterest()
     {
+        $start = '2015-10-01';
+
+        $end   = '2015-10-31';
 
         $this->request
              ->expects($this->once())
-             ->method('getLoan')
-             ->willReturn($this->id)
+             ->method('getStartDate')
+             ->willReturn($start)
         ;
 
-        $this->loans
+        $this->request
              ->expects($this->once())
-             ->method('find')
-             ->with($this->id)
-             ->willReturn($this->loan)
+             ->method('getEndDate')
+             ->willReturn($end)
         ;
 
-        $this->tranches
+        $this->investments
              ->expects($this->once())
-             ->method('findByLoan')
-             ->with($this->loan)
-             ->willReturn($this->getTranches())
+             ->method('findByPeriod')
+             ->with($start, $end)
+             ->willReturn($this->getInvestments())
         ;
 
-        $service = new CalculateInterest($this->loans, $this->tranches);
+        $service = new CalculateInterest($this->investments);
 
         $service($this->request);
     }
 
 
-    private function getTranches()
+    private function getInvestments()
     {
         return [];
     }

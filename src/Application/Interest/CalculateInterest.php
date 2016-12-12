@@ -29,9 +29,10 @@ final class CalculateInterest implements CalculateInterestInterface
      */
     public function __invoke(CalculateInterestRequest $request)
     {
-        $investments = $this->investments->findByPeriod(
-            $request->period()
-        );
+        $start = $request->getStartDate();
+        $end   = $request->getEndDate();
+
+        $investments = $this->investments->findByPeriod($start, $end);
 
         //$loan = $this->loans->find($request->getLoan());
         //$tranches = $this->tranches->findByLoan($loan);
@@ -44,6 +45,6 @@ final class CalculateInterest implements CalculateInterestInterface
         }
 
         //var_dump($investments);
-        return $response;
+        return [];
     }
 }
