@@ -17,14 +17,25 @@ use LendInvest\Domain\Repository;
  */
 class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
+     */
     private $id;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches
+     */
     private $tranches;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Loan $loan
+     */
     private $loan;
+
 
     protected function setUp()
     {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches */
         $this->tranches  = $this->getMockBuilder(Repository\TrancheRepositoryInterface::class)
                                 ->disableOriginalConstructor()
                                 ->getMock()
