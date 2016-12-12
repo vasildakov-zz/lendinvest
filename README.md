@@ -5,6 +5,8 @@ LendInvest Coding Test
 [![Code Coverage](https://scrutinizer-ci.com/g/vasildakov/LendInvest/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/vasildakov/LendInvest/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vasildakov/LendInvest/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vasildakov/LendInvest/?branch=master)
 
+## Requirements
+Don’t use any framework or external libraries (except composer for dependencies as PHPUnit).
 
 ## Exercise
 In LendInvest we think everyone should have the opportunity to invest in property, which is why we’re disrupting the status quo. This is lending and investing without the banks. Mortgages simplified. We connect people who want to invest their money, with investments to those who want to borrow.
