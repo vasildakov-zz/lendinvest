@@ -1,6 +1,8 @@
 <?php
 namespace LendInvest\Application\Investment;
 
+use LendInvest\Domain\Repository\TrancheRepositoryInterface;
+
 /**
  * Class MakeInvestment
  *
@@ -9,23 +11,23 @@ namespace LendInvest\Application\Investment;
 final class MakeInvestment implements MakeInvestmentInterface
 {
     /**
-     * @var TrancheRepository $tranches
+     * @var TrancheRepositoryInterface $tranches
      */
     private $tranches;
 
     /**
-     * @param TrancheRepository $tranches
+     * @param TrancheRepositoryInterface $tranches
      */
-    public function __construct(TrancheRepository $tranches)
+    public function __construct(TrancheRepositoryInterface $tranches)
     {
         $this->tranches = $tranches;
     }
 
     /**
-     * @param  MakeInvetmentRequest $request
+     * @param  MakeInvestmentRequest $request
      * @return void
      */
-    public function __invoke(MakeInvetmentRequest $request)
+    public function __invoke(MakeInvestmentRequest $request)
     {
         $tranche = $this->tranches->find($request->tranche());
     }

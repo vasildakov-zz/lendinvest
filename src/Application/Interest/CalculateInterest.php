@@ -34,9 +34,6 @@ final class CalculateInterest implements CalculateInterestInterface
 
         $investments = $this->investments->findByPeriod($start, $end);
 
-        //$loan = $this->loans->find($request->getLoan());
-        //$tranches = $this->tranches->findByLoan($loan);
-
         foreach ($investments as $investment) {
             $tranche  = $investment->getTranche();
             $interest = $tranche->getInterest();
@@ -44,7 +41,6 @@ final class CalculateInterest implements CalculateInterestInterface
             // $amount = $investment->getAmount();
         }
 
-        //var_dump($investments);
         return [];
     }
 }

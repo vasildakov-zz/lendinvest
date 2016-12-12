@@ -6,7 +6,7 @@ namespace LendInvest\Application\Investment;
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class MakeInvestmentRequest
+class MakeInvestmentRequest
 {
     private $investor;
 
