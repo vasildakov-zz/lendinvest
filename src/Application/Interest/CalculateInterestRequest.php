@@ -19,8 +19,6 @@ namespace LendInvest\Application\Interest;
  */
 class CalculateInterestRequest
 {
-    private $loan;
-
     private $startDate;
 
     private $endDate;
@@ -30,19 +28,10 @@ class CalculateInterestRequest
      * @param string $startDate     starting date in Y-m-d format
      * @param string $endDate       ending date in Y-m-d format
      */
-    public function __construct($loan, $startDate, $endDate)
+    public function __construct($startDate, $endDate)
     {
-        $this->loan      = $loan;
         $this->startDate = $startDate;
         $this->endDate   = $endDate;
-    }
-
-    /**
-     * @return string $loan
-     */
-    public function getLoan()
-    {
-        return $this->loan;
     }
 
     /**

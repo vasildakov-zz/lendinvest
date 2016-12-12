@@ -12,6 +12,7 @@
 
 namespace LendInvest\Application\Investment;
 
+use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Repository\TrancheRepositoryInterface;
 
 /**
@@ -40,6 +41,12 @@ final class MakeInvestment implements MakeInvestmentInterface
      */
     public function __invoke(MakeInvestmentRequest $request)
     {
-        $tranche = $this->tranches->find($request->tranche());
+        $investor = $request->investor();
+        $tranche  = $request->tranche();
+        $amount   = $request->amount();
+
+        $tranche = $this->tranches->find($tranche);
+
+        // $tranche->addInvestment(new Investment());
     }
 }

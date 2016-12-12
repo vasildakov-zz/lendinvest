@@ -12,6 +12,7 @@
 
 namespace LendInvest\Application\Interest;
 
+use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Repository\InvestmentRepositoryInterface;
 
 /**
@@ -36,7 +37,7 @@ final class CalculateInterest implements CalculateInterestInterface
 
     /**
      * @param  CalculateInterestRequest $request
-     * @return void
+     * @return array
      */
     public function __invoke(CalculateInterestRequest $request)
     {
@@ -46,10 +47,28 @@ final class CalculateInterest implements CalculateInterestInterface
         $investments = $this->investments->findByPeriod($start, $end);
 
         foreach ($investments as $investment) {
+            $madeAt = $investment->getMadeAt();
+
+            $daterange = new \DatePeriod(
+                (new \DateTime('2015-10-03'))->setTime(00, 00, 00),
+                (new \DateInterval('P1D')),
+                (new \DateTime('2015-10-31'))->setTime(23, 59, 59)
+            );
+
             $tranche  = $investment->getTranche();
             $interest = $tranche->getInterest();
 
-            // $amount = $investment->getAmount();
+            $daily  = 3 / 31; // 0.096774193548387
+
+            $period = iterator_count($daterange); // 29
+
+            $percentage = ($daily * $period);
+
+            $amount = $investment->getAmount()->getAmount();
+
+            $earn =  $amount * $percentage / 100;
+
+            var_dump($earn);
         }
 
         return [];
