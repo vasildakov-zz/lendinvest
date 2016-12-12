@@ -5,15 +5,19 @@ use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Entity\Loan;
 
 /**
- * Interface TranchesRepositoryInterface
+ * Interface TrancheRepositoryInterface
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-interface TranchesRepositoryInterface
+interface TrancheRepositoryInterface
 {
+    public function find($id);
+
     /**
      * @param  Uuid $id The id of the tranche
      * @return Tranche
      */
     public function findByLoan($loan);
+
+    public function findByInvestor($investor);
 }
