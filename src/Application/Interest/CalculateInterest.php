@@ -1,34 +1,49 @@
 <?php
 namespace LendInvest\Application\Interest;
 
-use LendInvest\Domain\Repository\TrancheRepositoryInterface;
+use LendInvest\Domain\Repository\InvestmentRepositoryInterface;
 
 /**
- * Class MakeInvestment
+ * Class CalculateInterest
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
 final class CalculateInterest implements CalculateInterestInterface
 {
     /**
-     * @var TrancheRepositoryInterface $tranches
+     * @var InvestmentRepositoryInterface $investments
      */
-    private $tranches;
+    private $investments;
 
     /**
-     * @param TrancheRepositoryInterface $tranches
+     * @param InvestmentRepositoryInterface $investments
      */
-    public function __construct(TrancheRepositoryInterface $tranches)
+    public function __construct(InvestmentRepositoryInterface $investments)
     {
-        $this->tranches = $tranches;
+        $this->investments = $investments;
     }
 
     /**
-     * @param  MakeInvetmentRequest $request
+     * @param  CalculateInterestRequest $request
      * @return void
      */
     public function __invoke(CalculateInterestRequest $request)
     {
-        $tranches = $this->tranches->findByLoan($request->getLoan());
+        $investments = $this->investments->findByPeriod(
+            $request->period()
+        );
+
+        //$loan = $this->loans->find($request->getLoan());
+        //$tranches = $this->tranches->findByLoan($loan);
+
+        foreach ($investments as $investment) {
+            $tranche  = $investment->getTranche();
+            $interest = $tranche->getInterest();
+
+            // $amount = $investment->getAmount();
+        }
+
+        //var_dump($investments);
+        return $response;
     }
 }

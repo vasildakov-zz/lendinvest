@@ -65,7 +65,9 @@ class Money implements MoneyInterface
         return new static($amount, $this->currency);
     }
 
-
+    /**
+     * @codeCoverageIgnore
+     */
     private function assertSameCurrency(MoneyInterface $a, MoneyInterface $b)
     {
         if ($a->getCurrency() != $b->getCurrency()) {
@@ -73,7 +75,9 @@ class Money implements MoneyInterface
         }
     }
 
-
+    /**
+     * @codeCoverageIgnore
+     */
     private function assertIsInteger($amount)
     {
         if (!is_int($amount)) {
@@ -81,7 +85,9 @@ class Money implements MoneyInterface
         }
     }
 
-
+    /**
+     * @codeCoverageIgnore
+     */
     private static function handleCurrencyArgument($currency)
     {
         if (!$currency instanceof Currency && !is_string($currency)) {

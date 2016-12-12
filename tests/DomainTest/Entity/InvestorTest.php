@@ -13,6 +13,7 @@ use LendInvest\Domain\Type;
 class InvestorTest extends \PHPUnit_Framework_TestCase
 {
     protected $id;
+
     protected $wallet;
 
     protected function setUp()
@@ -32,6 +33,8 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
         $investor = new Entity\Investor($this->id);
 
         $this->assertInstanceOf(Entity\Investor::class, $investor);
+
+        $this->assertEquals($this->id, $investor->getId());
     }
 
 
@@ -41,6 +44,8 @@ class InvestorTest extends \PHPUnit_Framework_TestCase
      */
     public function itHasRequiredProperties()
     {
+        $this->assertClassHasAttribute('id', Entity\Investor::class);
+
         $this->assertClassHasAttribute('name', Entity\Investor::class);
 
         $this->assertClassHasAttribute('surname', Entity\Investor::class);

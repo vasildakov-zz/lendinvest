@@ -153,6 +153,7 @@ class Tranche implements TrancheInterface
     /**
      * Returns current investments amount
      * @return int $amount
+     * @codeCoverageIgnore
      */
     public function getCurrentAmount()
     {
@@ -160,9 +161,9 @@ class Tranche implements TrancheInterface
     }
 
 
-
     /**
      * @return array $investments
+     * @codeCoverageIgnore
      */
     public function getInvestments()
     {
@@ -172,6 +173,7 @@ class Tranche implements TrancheInterface
 
     /**
      * @param Investment $investment
+     * @codeCoverageIgnore
      */
     public function addInvestment(Investment $investment)
     {

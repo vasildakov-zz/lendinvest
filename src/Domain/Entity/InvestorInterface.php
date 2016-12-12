@@ -23,7 +23,7 @@ interface InvestorInterface
     public function addWallet(Wallet $wallet);
 
     /**
-     * @return array
+     * @return Wallet[]
      */
     public function getWallets();
 }

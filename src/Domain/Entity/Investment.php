@@ -3,6 +3,7 @@ namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Entity\Investor;
 
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
@@ -134,6 +135,25 @@ class Investment implements InvestmentInterface
     public function getAmount() : Money
     {
         return $this->amount;
+    }
+
+
+    /**
+     * Guard
+     *
+     * @param  Money  $money
+     * @return boolean
+     * @codeCoverageIgnore
+     */
+    private function assertSameCurrency(Money $money)
+    {
+        $currency = $money->getCurrency();
+    
+        if ($this->amount->getCurrency()->equals($currency)) {
+            return true;
+        }
+
+        return false;
     }
 
 

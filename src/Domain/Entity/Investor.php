@@ -61,7 +61,7 @@ class Investor implements InvestorInterface
         $this->setId($id);
 
         $this->investments = [];
-        $this->wallets = [];
+        $this->wallets     = [];
     }
 
 
@@ -86,6 +86,7 @@ class Investor implements InvestorInterface
 
     /**
      * @param  Investment $investment
+     * @codeCoverageIgnore
      */
     public function invest(Investment $investment)
     {
