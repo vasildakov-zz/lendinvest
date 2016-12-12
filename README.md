@@ -3,6 +3,7 @@ LendInvest Coding Test
 
 [![Build Status](https://travis-ci.org/vasildakov/LendInvest.svg?branch=master)](https://travis-ci.org/vasildakov/LendInvest)
 [![Coverage Status](https://coveralls.io/repos/github/vasildakov/LendInvest/badge.svg?branch=master)](https://coveralls.io/github/vasildakov/LendInvest?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vasildakov/LendInvest/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vasildakov/LendInvest/?branch=master)
 
 
 ## Exercise
