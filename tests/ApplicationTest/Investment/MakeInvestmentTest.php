@@ -37,10 +37,11 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches */
         $this->tranches  = $this->getMockBuilder(Repository\TrancheRepositoryInterface::class)
-                                ->disableOriginalConstructor()
-                                ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
+
 
     /**
      * @test

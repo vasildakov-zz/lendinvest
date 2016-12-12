@@ -12,15 +12,30 @@ use LendInvest\Domain\Type;
  */
 class InvestorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
+     */
     protected $id;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Wallet
+     */
     protected $wallet;
+
 
     protected function setUp()
     {
-        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
+        $this->id = $this->getMockBuilder(Type\Uuid::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
-        $this->wallet = $this->getMockBuilder(Entity\Wallet::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Wallet $wallet */
+        $this->wallet = $this->getMockBuilder(Entity\Wallet::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
     }
 
 

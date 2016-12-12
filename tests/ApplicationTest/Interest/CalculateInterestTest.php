@@ -17,28 +17,66 @@ use LendInvest\Domain\Repository;
  */
 class CalculateInterestTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
     private $id;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestmentRepositoryInterface $investments */
     private $investments;
 
-    private $loan;
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investment $investment */
+    private $investment;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Interest $interest */
+    private $interest;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
+    private $tranche;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
+    private $amount;
 
     protected function setUp()
     {
-        $this->investments = $this->getMockBuilder(Repository\InvestmentRepositoryInterface::class)
-                                  ->disableOriginalConstructor()
-                                  ->getMock()
-        ;
-
-
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
         $this->id = $this->getMockBuilder(Type\Uuid::class)
-                         ->disableOriginalConstructor()
-                         ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $this->loan = $this->getMockBuilder(Entity\Loan::class)
-                           ->disableOriginalConstructor()
-                           ->getMock()
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestmentRepositoryInterface $investments */
+        $this->investments = $this->getMockBuilder(Repository\InvestmentRepositoryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investment $investment */
+        $this->investment = $this->getMockBuilder(Entity\Investment::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Interest $interest */
+        $this->interest = $this->getMockBuilder(Type\Interest::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
+        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime $madeAt */
+        $this->madeAt = $this->getMockBuilder(Type\DateTime::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
+        $this->amount = $this->getMockBuilder(Type\Money::class)
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
 
@@ -63,6 +101,35 @@ class CalculateInterestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new CalculateInterestRequest('1', '2015-10-01', '2015-10-31');
 
+        $this->investment
+             ->expects($this->once())
+             ->method('getTranche')
+             ->willReturn($this->tranche)
+        ;
+
+        $this->investment
+             ->expects($this->once())
+             ->method('getMadeAt')
+             ->willReturn($this->madeAt)
+        ;
+
+        $this->investment
+             ->expects($this->once())
+             ->method('getAmount')
+             ->willReturn($this->amount)
+        ;
+
+        $this->amount
+             ->expects($this->once())
+             ->method('getAmount')
+             ->willReturn(1000)
+        ;
+
+        $this->tranche
+             ->expects($this->once())
+             ->method('getInterest')
+             ->willReturn($this->interest)
+        ;
 
         $this->investments
              ->expects($this->once())
@@ -79,6 +146,8 @@ class CalculateInterestTest extends \PHPUnit_Framework_TestCase
 
     private function getInvestments()
     {
-        return [];
+        return [
+            $this->investment
+        ];
     }
 }

@@ -12,20 +12,58 @@ use LendInvest\Domain\Type;
  */
 class InvestmentTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
+     */
     protected $id;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investo
+     */
     protected $investor;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche
+     */
     protected $tranche;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Money
+     */
     protected $amount;
+
 
     protected function setUp()
     {
-        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
+        $this->id = $this->getMockBuilder(Type\Uuid::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
-        $this->investor = $this->getMockBuilder(Entity\Investor::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investor $investor */
+        $this->investor = $this->getMockBuilder(Entity\Investor::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
-        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
+        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
-        $this->amount = $this->getMockBuilder(Type\Money::class)->disableOriginalConstructor()->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
+        $this->amount = $this->getMockBuilder(Type\Money::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime $madeAt */
+        $this->madeAt = $this->getMockBuilder(Type\DateTime::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
     }
 
     /**
@@ -45,6 +83,8 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->tranche, $investment->getTranche());
 
         $this->assertEquals($this->amount, $investment->getAmount());
+
+        $this->assertInstanceOf(Type\DateTime::class, $investment->getMadeAt());
     }
 
     /**
@@ -61,6 +101,6 @@ class InvestmentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertClassHasAttribute('amount', Entity\Investment::class);
 
-        $this->assertClassHasAttribute('createdAt', Entity\Investment::class);
+        $this->assertClassHasAttribute('madeAt', Entity\Investment::class);
     }
 }
