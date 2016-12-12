@@ -89,14 +89,21 @@ class DateTime implements \JsonSerializable
         return $this->day;
     }
 
+    public function toString()
+    {
+        return sprintf('%s-%s-%s', $this->year, $this->month, $this->day);
+    }
+
+
     /**
      * Returns string in format Y-m-d
      * @return string
      */
     public function __toString()
     {
-        return sprintf('%s-%s-%s', $this->year, $this->month, $this->day);
+        return $this->toString();
     }
+
 
     public function jsonSerialize()
     {

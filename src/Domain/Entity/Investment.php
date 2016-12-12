@@ -49,9 +49,9 @@ class Investment implements InvestmentInterface
     private $amount;
 
     /**
-     * @var \LendInvest\Domain\Type\DateTime $createdAt
+     * @var \LendInvest\Domain\Type\DateTime $madeAt
      */
-    private $createdAt;
+    private $madeAt;
 
 
     /**
@@ -66,9 +66,9 @@ class Investment implements InvestmentInterface
         $this->setInvestor($investor);
         $this->setTranche($tranche);
         $this->setAmount($amount);
-
-        $this->createdAt = DateTime::fromDateTime(new \DateTime());
+        $this->setMadeAt(DateTime::fromDateTime(new \DateTime()));
     }
+
 
     /**
      * @param Uuid $id
@@ -159,12 +159,25 @@ class Investment implements InvestmentInterface
     private function assertSameCurrency(Money $money)
     {
         $currency = $money->getCurrency();
-    
+
         if ($this->amount->getCurrency()->equals($currency)) {
             return true;
         }
 
         return false;
+    }
+
+    private function setMadeAt(DateTime $madeAt)
+    {
+        $this->madeAt = $madeAt;
+
+        return $this;
+    }
+
+
+    public function getMadeAt()
+    {
+        return $this->madeAt;
     }
 
 
