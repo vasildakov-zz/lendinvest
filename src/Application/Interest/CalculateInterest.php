@@ -41,24 +41,24 @@ final class CalculateInterest implements CalculateInterestInterface
      */
     public function __invoke(CalculateInterestRequest $request)
     {
+        $return = [];
+
         $start = $request->getStartDate();
         $end   = $request->getEndDate();
 
         $investments = $this->investments->findByPeriod($start, $end);
 
         foreach ($investments as $investment) {
-            $madeAt = $investment->getMadeAt();
-
+            // investment datarange
             $daterange = new \DatePeriod(
-                (new \DateTime('2015-10-03'))->setTime(00, 00, 00),
+                (new \DateTime($investment->getMadeAt()->toString()))->setTime(00, 00, 00),
                 (new \DateInterval('P1D')),
                 (new \DateTime('2015-10-31'))->setTime(23, 59, 59)
             );
 
-            $tranche  = $investment->getTranche();
-            $interest = $tranche->getInterest();
+            $interest = $investment->getTranche()->getInterest()->getValue();
 
-            $daily  = 3 / 31; // 0.096774193548387
+            $daily = $interest / 31; // 0.096774193548387
 
             $period = iterator_count($daterange); // 29
 
@@ -68,9 +68,9 @@ final class CalculateInterest implements CalculateInterestInterface
 
             $earn =  $amount * $percentage / 100;
 
-            var_dump($earn);
+            $return[] = $earn;
         }
 
-        return [];
+        return $return;
     }
 }

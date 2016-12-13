@@ -101,6 +101,18 @@ class CalculateInterestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new CalculateInterestRequest('1', '2015-10-01', '2015-10-31');
 
+        $this->madeAt
+             ->expects($this->once())
+             ->method('toString')
+             ->willReturn('2015-10-03')
+        ;
+
+        $this->interest
+             ->expects($this->once())
+             ->method('getValue')
+             ->willReturn(3)
+        ;
+
         $this->investment
              ->expects($this->once())
              ->method('getTranche')

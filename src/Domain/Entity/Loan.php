@@ -177,8 +177,8 @@ class Loan implements LoanInterface
      */
     public function getNumberOfDays()
     {
-        $start = (new \DateTime('2016-12-01'));
-        $end   = (new \DateTime('2017-01-01'))->modify('+ 1 day');
+        $start = (new \DateTime('2015-10-01'));
+        $end   = (new \DateTime('2015-11-15'));
 
         return $start->diff($end)->days;
     }
