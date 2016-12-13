@@ -101,10 +101,8 @@ class Investor implements InvestorInterface
      */
     public function invest(Investment $investment)
     {
-        // new Investment($id, $investor, $tranche, $amount)
         $this->investments[] = $investment;
     }
-
 
 
     /**
@@ -113,12 +111,11 @@ class Investor implements InvestorInterface
     public function addWallet(Wallet $wallet)
     {
         $this->wallets[] = $wallet;
-
-        return $this;
     }
 
+
     /**
-     * @param Wallets[]
+     * @return Wallet[]
      */
     public function getWallets()
     {
