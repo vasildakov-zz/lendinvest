@@ -115,7 +115,7 @@ class Investor implements InvestorInterface
 
 
     /**
-     * @return Wallet[]
+     * @return \Lendinvest\Domain\Entit\Wallet[]
      */
     public function getWallets()
     {
