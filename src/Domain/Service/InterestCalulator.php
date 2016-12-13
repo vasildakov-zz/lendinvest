@@ -12,7 +12,6 @@
 
 namespace LendInvest\Domain\Service;
 
-use LendInvest\Domain\Entity\Tranche;
 use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Repository\TrancheRepositoryInterface;
 
