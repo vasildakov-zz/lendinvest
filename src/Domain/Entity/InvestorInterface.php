@@ -29,7 +29,7 @@ interface InvestorInterface
     public function getId() : Uuid;
 
     /**
-     * @return Wallet
+     * @return void
      */
     public function addWallet(Wallet $wallet);
 
