@@ -12,7 +12,12 @@
 
 namespace LendInvest\Application\Investment;
 
+use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\Money;
+use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Investment;
+use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Repository\InvestorRepositoryInterface;
 use LendInvest\Domain\Repository\TrancheRepositoryInterface;
 
 /**
@@ -23,15 +28,24 @@ use LendInvest\Domain\Repository\TrancheRepositoryInterface;
 final class MakeInvestment implements MakeInvestmentInterface
 {
     /**
+     * @var InvestorRepositoryInterface $investors
+     */
+    private $investors;
+
+    /**
      * @var TrancheRepositoryInterface $tranches
      */
     private $tranches;
 
     /**
-     * @param TrancheRepositoryInterface $tranches
+     * @param InvestorRepositoryInterface $investors
+     * @param TrancheRepositoryInterface  $tranches
      */
-    public function __construct(TrancheRepositoryInterface $tranches)
-    {
+    public function __construct(
+        InvestorRepositoryInterface $investors,
+        TrancheRepositoryInterface $tranches
+    ) {
+        $this->investors = $investors;
         $this->tranches = $tranches;
     }
 
@@ -41,12 +55,21 @@ final class MakeInvestment implements MakeInvestmentInterface
      */
     public function __invoke(MakeInvestmentRequest $request)
     {
-        $investor = $request->investor();
-        $tranche  = $request->tranche();
-        $amount   = $request->amount();
+        $investor = $this->investors->find($request->investor());
+        if (!$investor instanceof Investor) {
+            throw new \Exception("Investor does not exist");
+        }
 
-        $tranche = $this->tranches->find($tranche);
+        $tranche = $this->tranches->find($request->tranche());
+        if (!$tranche instanceof Tranche) {
+            throw new \Exception("Tranche does not exist");
+        }
 
-        // $tranche->addInvestment(new Investment());
+        $id = Uuid::uuid4();
+        $amount = new Money($request->amount(), 'GBP');
+
+        $investor->invest(
+            new Investment($id, $investor, $tranche, $amount)
+        );
     }
 }

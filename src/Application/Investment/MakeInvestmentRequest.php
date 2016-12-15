@@ -19,16 +19,25 @@ namespace LendInvest\Application\Investment;
  */
 class MakeInvestmentRequest
 {
+    /**
+     * @var string
+     */
     private $investor;
 
+    /**
+     * @var string
+     */
     private $tranche;
 
+    /**
+     * @var string
+     */
     private $amount;
 
     /**
-     * @param [type] $investor [description]
-     * @param [type] $tranche  [description]
-     * @param [type] $amount   [description]
+     * @param string $investor
+     * @param string $tranche
+     * @param string $amount
      */
     public function __construct($investor, $tranche, $amount)
     {
@@ -39,7 +48,7 @@ class MakeInvestmentRequest
 
 
     /**
-     * @return [type] [description]
+     * @return string
      */
     public function investor()
     {
@@ -47,7 +56,7 @@ class MakeInvestmentRequest
     }
 
     /**
-     * @return [type] [description]
+     * @return string
      */
     public function tranche()
     {
@@ -55,7 +64,7 @@ class MakeInvestmentRequest
     }
 
     /**
-     * @return [type] [description]
+     * @return string
      */
     public function amount()
     {
