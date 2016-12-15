@@ -23,6 +23,11 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
     private $id;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestorRepositoryInterface $investors
+     */
+    private $investors;
+
+    /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches
      */
     private $tranches;
@@ -35,8 +40,26 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestorRepositoryInterface $investors */
+        $this->investors  = $this->getMockBuilder(Repository\InvestorRepositoryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investor $investor */
+        $this->investor  = $this->getMockBuilder(Entity\Investor::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
         /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches */
         $this->tranches  = $this->getMockBuilder(Repository\TrancheRepositoryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
+        $this->tranche  = $this->getMockBuilder(Entity\Tranche::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -49,7 +72,7 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
      */
     public function itCanBeConstructed()
     {
-        $service = new MakeInvestment($this->tranches);
+        $service = new MakeInvestment($this->investors, $this->tranches);
 
         self::assertInstanceOf(MakeInvestmentInterface::class, $service);
     }
@@ -59,12 +82,73 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
      * @test
      * @group application
      */
-    public function itCanBeInvoked()
+    public function itCanMakeAnInvestment()
     {
-        $request = new MakeInvestmentRequest('investor', 'tranche', 'amount');
+        $request = new MakeInvestmentRequest('investor', 'tranche', 100);
 
-        $service = new MakeInvestment($this->tranches);
+        $this->investors
+             ->expects($this->once())
+             ->method('find')
+             ->with($request->investor())
+             ->willReturn($this->investor)
+        ;
 
+        $this->tranches
+             ->expects($this->once())
+             ->method('find')
+             ->with($request->tranche())
+             ->willReturn($this->tranche)
+        ;
+
+        $service = new MakeInvestment($this->investors, $this->tranches);
         $service($request);
+    }
+
+
+    /**
+     * @test
+     * @group application
+     * @expectedException \Exception
+     * @expectedExceptionMessage Investor does not exist
+     */
+    public function itCanThrowAnExceptionIfInvestorDoesNotExist()
+    {
+        $request = new MakeInvestmentRequest('investor', 'tranche', 100);
+
+        $this->investors
+             ->expects($this->once())
+             ->method('find')
+             ->with($request->investor())
+             ->willReturn(null)
+        ;
+
+        (new MakeInvestment($this->investors, $this->tranches))($request);
+    }
+
+    /**
+     * @test
+     * @group application
+     * @expectedException \Exception
+     * @expectedExceptionMessage Tranche does not exist
+     */
+    public function itCanThrowAnExceptionIfTrancheDoesNotExist()
+    {
+        $request = new MakeInvestmentRequest('investor', 'tranche', 100);
+
+        $this->investors
+             ->expects($this->once())
+             ->method('find')
+             ->with($request->investor())
+             ->willReturn($this->investor)
+        ;
+
+        $this->tranches
+             ->expects($this->once())
+             ->method('find')
+             ->with($request->tranche())
+             ->willReturn(null)
+        ;
+
+        (new MakeInvestment($this->investors, $this->tranches))($request);
     }
 }
