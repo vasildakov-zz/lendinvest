@@ -20,13 +20,22 @@ namespace LendInvest\Domain\Type;
  */
 class Currency implements CurrencyInterface
 {
-    private $code; // currency code
+    /**
+     * @var string
+     */
+    private $code;
 
+    /**
+     * @param string $code
+     */
     public function __construct($code)
     {
         $this->code = $code;
     }
 
+    /**
+     * @return string $code
+     */
     public function getCode()
     {
         return $this->code;
