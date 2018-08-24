@@ -59,8 +59,12 @@ class Investment implements InvestmentInterface
      * @param TrancheInterface    $tranche
      * @param MoneyInterface      $amount
      */
-    public function __construct(Uuid $id, InvestorInterface $investor, TrancheInterface $tranche, MoneyInterface $amount)
-    {
+    public function __construct(
+        Uuid $id,
+        InvestorInterface $investor,
+        TrancheInterface $tranche,
+        MoneyInterface $amount
+    ) {
         $this->setId($id);
         $this->setInvestor($investor);
         $this->setTranche($tranche);
