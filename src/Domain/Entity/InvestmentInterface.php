@@ -16,6 +16,7 @@ use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Entity\Tranche;
 
 use LendInvest\Domain\Type\Money;
+use LendInvest\Domain\Type\MoneyInterface;
 use LendInvest\Domain\Type\Uuid;
 
 /**
@@ -32,17 +33,17 @@ interface InvestmentInterface
     public function getId() : Uuid;
 
     /**
-     * @return Investor
+     * @return InvestorInterface
      */
-    public function getInvestor() : Investor;
+    public function getInvestor() : InvestorInterface;
 
     /**
-     * @return Tranche
+     * @return TrancheInterface
      */
-    public function getTranche() : Tranche;
+    public function getTranche() : TrancheInterface;
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getAmount() : Money;
+    public function getAmount() : MoneyInterface;
 }

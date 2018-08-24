@@ -15,7 +15,7 @@ use LendInvest\Domain\Repository;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
+class MakeInvestmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
@@ -28,9 +28,19 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
     private $investors;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestorInterface $investor
+     */
+    private $investor;
+
+    /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches
      */
     private $tranches;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche
+     */
+    private $tranche;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Loan $loan
@@ -41,28 +51,19 @@ class MakeInvestmentTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestorRepositoryInterface $investors */
-        $this->investors  = $this->getMockBuilder(Repository\InvestorRepositoryInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->investors  = $this->getMockForAbstractClass(Repository\InvestorRepositoryInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investor $investor */
-        $this->investor  = $this->getMockBuilder(Entity\Investor::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->investor  = $this->getMockForAbstractClass(Entity\InvestorInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\TrancheRepositoryInterface $tranches */
-        $this->tranches  = $this->getMockBuilder(Repository\TrancheRepositoryInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->tranches  = $this->getMockForAbstractClass(Repository\TrancheRepositoryInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
-        $this->tranche  = $this->getMockBuilder(Entity\Tranche::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche */
+        $this->tranche  = $this->getMockForAbstractClass(Entity\TrancheInterface::class);
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\LoanInterface $loan */
+        $this->loan  = $this->getMockForAbstractClass(Entity\LoanInterface::class);
     }
 
 

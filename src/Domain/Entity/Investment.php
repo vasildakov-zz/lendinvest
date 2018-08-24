@@ -10,12 +10,11 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Domain\Entity;
 
-use LendInvest\Domain\Entity\Investment;
-use LendInvest\Domain\Entity\Tranche;
-use LendInvest\Domain\Entity\Investor;
-
+use LendInvest\Domain\Type\MoneyInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
@@ -56,11 +55,11 @@ class Investment implements InvestmentInterface
 
     /**
      * @param Uuid       $id
-     * @param Investor   $investor
-     * @param Tranche    $tranche
-     * @param Money      $amount
+     * @param InvestorInterface   $investor
+     * @param TrancheInterface    $tranche
+     * @param MoneyInterface      $amount
      */
-    public function __construct(Uuid $id, Investor $investor, Tranche $tranche, Money $amount)
+    public function __construct(Uuid $id, InvestorInterface $investor, TrancheInterface $tranche, MoneyInterface $amount)
     {
         $this->setId($id);
         $this->setInvestor($investor);
@@ -72,6 +71,7 @@ class Investment implements InvestmentInterface
 
     /**
      * @param Uuid $id
+     * @return Investment
      */
     private function setId(Uuid $id)
     {
@@ -90,9 +90,10 @@ class Investment implements InvestmentInterface
 
 
     /**
-     * @param Investor $investor
+     * @param InvestorInterface $investor
+     * @return Investment
      */
-    private function setInvestor(Investor $investor)
+    private function setInvestor(InvestorInterface $investor)
     {
         $this->investor = $investor;
 
@@ -103,16 +104,17 @@ class Investment implements InvestmentInterface
     /**
      * @return Investor $investor
      */
-    public function getInvestor() : Investor
+    public function getInvestor() : InvestorInterface
     {
         return $this->investor;
     }
 
 
     /**
-     * @param Tranche $tranche
+     * @param TrancheInterface $tranche
+     * @return Investment
      */
-    private function setTranche(Tranche $tranche)
+    private function setTranche(TrancheInterface $tranche)
     {
         $this->tranche = $tranche;
 
@@ -121,18 +123,19 @@ class Investment implements InvestmentInterface
 
 
     /**
-     * @return Tranche $tranche
+     * @return TrancheInterface $tranche
      */
-    public function getTranche() : Tranche
+    public function getTranche() : TrancheInterface
     {
         return $this->tranche;
     }
 
 
     /**
-     * @param Money $amount
+     * @param MoneyInterface $amount
+     * @return Investment
      */
-    private function setAmount(Money $amount)
+    private function setAmount(MoneyInterface $amount)
     {
         $this->amount = $amount;
 
@@ -141,9 +144,9 @@ class Investment implements InvestmentInterface
 
 
     /**
-     * @return Money $amount
+     * @return MoneyInterface $amount
      */
-    public function getAmount() : Money
+    public function getAmount() : MoneyInterface
     {
         return $this->amount;
     }
@@ -167,6 +170,10 @@ class Investment implements InvestmentInterface
         return false;
     }
 
+    /**
+     * @param DateTime $madeAt
+     * @return $this
+     */
     private function setMadeAt(DateTime $madeAt)
     {
         $this->madeAt = $madeAt;
@@ -174,7 +181,9 @@ class Investment implements InvestmentInterface
         return $this;
     }
 
-
+    /**
+     * @return DateTime
+     */
     public function getMadeAt()
     {
         return $this->madeAt;

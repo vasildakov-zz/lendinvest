@@ -10,7 +10,7 @@ use LendInvest\Domain\Entity;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class WalletTest extends \PHPUnit_Framework_TestCase
+class WalletTest extends \PHPUnit\Framework\TestCase
 {
     protected $id;
     protected $investor;

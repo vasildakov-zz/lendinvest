@@ -37,4 +37,10 @@ interface InvestorInterface
      * @return Wallet[]
      */
     public function getWallets();
+
+    /**
+     * @param InvestmentInterface $investment
+     * @return mixed
+     */
+    public function invest(InvestmentInterface $investment);
 }

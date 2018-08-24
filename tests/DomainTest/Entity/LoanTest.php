@@ -1,4 +1,5 @@
 <?php
+
 namespace LendInvest\DomainTest\Entity;
 
 use LendInvest\Domain\Entity;
@@ -10,11 +11,31 @@ use LendInvest\Domain\Type;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class LoanTest extends \PHPUnit_Framework_TestCase
+class LoanTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
+     */
     protected $id;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\CurrencyInterface
+     */
+    protected $currency;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface
+     */
     protected $tranche;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime
+     */
     protected $start;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime
+     */
     protected $end;
 
     protected function setUp()
@@ -86,6 +107,6 @@ class LoanTest extends \PHPUnit_Framework_TestCase
     {
         $loan = new Entity\Loan($this->id, $this->currency, $this->start, $this->end);
 
-        var_dump($loan->getNumberOfDays());
+        //var_dump($loan->getNumberOfDays());
     }
 }

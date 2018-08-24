@@ -10,9 +10,10 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Domain\Entity;
 
-use LendInvest\Domain\Entity\Tranche;
 use LendInvest\Domain\Type\Currency;
 use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Type\Uuid;
@@ -22,6 +23,7 @@ use LendInvest\Domain\Type\Uuid;
  *
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
+ * @todo update docblock
  */
 class Loan implements LoanInterface
 {
@@ -31,7 +33,7 @@ class Loan implements LoanInterface
     private $id;
 
     /**
-     * @var \LendInvest\Domain\Type\Currency $currency
+     * @var Currency $currency
      */
     private $currency;
 
@@ -41,21 +43,22 @@ class Loan implements LoanInterface
     private $tranches;
 
     /**
-     * @var \Lendinvest\Domain\Type\DateTime $startDate
+     * @var DateTime $startDate
      */
     private $startDate;
 
     /**
-     * @var \Lendinvest\Domain\Type\DateTime $endDate
+     * @var DateTime $endDate
      */
     private $endDate;
 
 
     /**
-     * @param Uuid         $id
-     * @param Currency     $currency
-     * @param DateTime     $startDate
-     * @param DateTime     $endDate
+     * Loan constructor.
+     * @param Uuid $id
+     * @param Currency $currency
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      */
     public function __construct(Uuid $id, Currency $currency, DateTime $startDate, DateTime $endDate)
     {
@@ -69,6 +72,7 @@ class Loan implements LoanInterface
 
     /**
      * @param Uuid $id
+     * @return Loan
      */
     private function setId(Uuid $id)
     {
@@ -76,7 +80,6 @@ class Loan implements LoanInterface
 
         return $this;
     }
-
 
     /**
      * @return Uuid $id
@@ -88,6 +91,7 @@ class Loan implements LoanInterface
 
     /**
      * @param Currency $currency
+     * @return Loan
      */
     private function setCurrency(Currency $currency)
     {
@@ -95,7 +99,6 @@ class Loan implements LoanInterface
 
         return $this;
     }
-
 
     /**
      * @return Currency $currency
@@ -113,7 +116,6 @@ class Loan implements LoanInterface
         $this->tranches[] = $tranche;
     }
 
-
     /**
      * @return array $tranches
      */
@@ -121,7 +123,6 @@ class Loan implements LoanInterface
     {
         return $this->tranches;
     }
-
 
     /**
      * @return boolean  Return false if Loan does not have tranches
@@ -131,9 +132,9 @@ class Loan implements LoanInterface
         return !empty($this->tranches);
     }
 
-
     /**
-     * @param \DateTime $startDate
+     * @param DateTime $startDate
+     * @return Loan
      */
     private function setStartDate(DateTime $startDate)
     {
@@ -142,9 +143,8 @@ class Loan implements LoanInterface
         return $this;
     }
 
-
     /**
-     * @return \DateTime $startDate
+     * @return DateTime $startDate
      */
     public function getStartDate()
     {
@@ -152,7 +152,8 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @param \DateTime $endDate
+     * @param DateTime $endDate
+     * @return Loan
      */
     private function setEndDate(DateTime $endDate)
     {
@@ -161,18 +162,17 @@ class Loan implements LoanInterface
         return $this;
     }
 
-
     /**
-     * @return \DateTime $endDate
+     * @return DateTime $endDate
      */
-    public function getEndDate()
+    public function getEndDate() : DateTime
     {
         return $this->endDate;
     }
 
-
     /**
      * Returns the number of days
+     * @todo removed hardcoded values
      * @return int  $days
      */
     public function getNumberOfDays()

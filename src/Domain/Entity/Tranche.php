@@ -10,6 +10,8 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Loan;

@@ -9,7 +9,7 @@ use LendInvest\Domain\Type\Uuid;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class UuidTest extends \PHPUnit_Framework_TestCase
+class UuidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test

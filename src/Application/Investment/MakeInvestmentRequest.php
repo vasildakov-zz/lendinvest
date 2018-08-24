@@ -10,6 +10,8 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Application\Investment;
 
 /**
@@ -45,7 +47,6 @@ class MakeInvestmentRequest
         $this->tranche  = $tranche;
         $this->amount   = $amount;
     }
-
 
     /**
      * @return string

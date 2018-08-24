@@ -10,7 +10,7 @@ use LendInvest\Domain\Type\Currency;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class MoneyTest extends \PHPUnit_Framework_TestCase
+class MoneyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test

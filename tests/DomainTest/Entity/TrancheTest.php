@@ -10,7 +10,7 @@ use LendInvest\Domain\Type;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class TrancheTest extends \PHPUnit_Framework_TestCase
+class TrancheTest extends \PHPUnit\Framework\TestCase
 {
     protected $id;
     protected $loan;

@@ -29,8 +29,16 @@ interface InvestmentRepositoryInterface
      */
     public function find($id);
 
-
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function findByInvestor($id);
 
+    /**
+     * @param $start
+     * @param $end
+     * @return mixed
+     */
     public function findByPeriod($start, $end);
 }

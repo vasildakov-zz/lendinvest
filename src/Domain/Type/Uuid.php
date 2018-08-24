@@ -38,7 +38,7 @@ class Uuid implements UuidInterface
             throw new \InvalidArgumentException;
         }
 
-        $value = $this->value;
+        $this->value = $value;
     }
 
     /**
@@ -63,6 +63,9 @@ class Uuid implements UuidInterface
         return new static($uuid);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return \strval($this->value);

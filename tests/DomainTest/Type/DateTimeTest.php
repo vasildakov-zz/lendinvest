@@ -9,7 +9,7 @@ use LendInvest\Domain\Type\DateTime;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class DateTimeTest extends \PHPUnit_Framework_TestCase
+class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test

@@ -22,6 +22,10 @@ use LendInvest\Domain\Entity\Loan;
  */
 interface TrancheRepositoryInterface
 {
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id);
 
     /**
@@ -30,5 +34,9 @@ interface TrancheRepositoryInterface
      */
     public function findByLoan($loan);
 
+    /**
+     * @param $investor
+     * @return mixed
+     */
     public function findByInvestor($investor);
 }

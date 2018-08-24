@@ -10,11 +10,15 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Application\Investment;
 
+use LendInvest\Domain\Entity\InvestorInterface;
+use LendInvest\Domain\Entity\TrancheInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
-use LendInvest\Domain\Entity\Investor;
+use LendInvest\Domain\Entity\InvestorI;
 use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Tranche;
 use LendInvest\Domain\Repository\InvestorRepositoryInterface;
@@ -38,8 +42,9 @@ final class MakeInvestment implements MakeInvestmentInterface
     private $tranches;
 
     /**
+     * MakeInvestment constructor.
      * @param InvestorRepositoryInterface $investors
-     * @param TrancheRepositoryInterface  $tranches
+     * @param TrancheRepositoryInterface $tranches
      */
     public function __construct(
         InvestorRepositoryInterface $investors,
@@ -52,16 +57,17 @@ final class MakeInvestment implements MakeInvestmentInterface
     /**
      * @param  MakeInvestmentRequest $request
      * @return void
+     * @throws \Exception
      */
     public function __invoke(MakeInvestmentRequest $request)
     {
         $investor = $this->investors->find($request->investor());
-        if (!$investor instanceof Investor) {
+        if (!$investor instanceof InvestorInterface) {
             throw new \Exception("Investor does not exist");
         }
 
         $tranche = $this->tranches->find($request->tranche());
-        if (!$tranche instanceof Tranche) {
+        if (!$tranche instanceof TrancheInterface) {
             throw new \Exception("Tranche does not exist");
         }
 

@@ -30,7 +30,11 @@ class Money implements MoneyInterface
      */
     private $currency;
 
-
+    /**
+     * Money constructor.
+     * @param $amount
+     * @param $currency
+     */
     public function __construct($amount, $currency)
     {
         if (!is_int($amount)) {

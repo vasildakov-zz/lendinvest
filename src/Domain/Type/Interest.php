@@ -25,7 +25,10 @@ class Interest implements InterestInterface
      */
     private $value;
 
-
+    /**
+     * Interest constructor.
+     * @param $value
+     */
     public function __construct($value)
     {
         if (!is_int($value)) {

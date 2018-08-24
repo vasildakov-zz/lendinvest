@@ -9,7 +9,7 @@ use LendInvest\Domain\Type\Interest;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class InterestTest extends \PHPUnit_Framework_TestCase
+class InterestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test

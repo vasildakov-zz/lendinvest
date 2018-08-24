@@ -15,7 +15,7 @@ use LendInvest\Domain\Repository;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class CalculateInterestTest extends \PHPUnit_Framework_TestCase
+class CalculateInterestTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
     private $id;

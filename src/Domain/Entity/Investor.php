@@ -10,6 +10,8 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Type\Uuid;
@@ -24,7 +26,6 @@ use LendInvest\Domain\Entity\Investment;
  */
 class Investor implements InvestorInterface
 {
-
     /**
      * @var \Lendinvest\Domain\Type\Uuid $id
      */
@@ -35,31 +36,30 @@ class Investor implements InvestorInterface
      */
     private $name;
 
-
     /**
      * @var string $surname
      */
     private $surname;
 
     /**
-     * @var \Lendinvest\Domain\Type\Email $email
+     * @var Email $email
      */
     private $email;
 
     /**
-     * @var \Lendinvest\Domain\Type\Address $address
+     * @var Address $address
      */
     private $address;
 
 
     /**
-     * @var \Lendinvest\Domain\Entit\Wallet[] $wallets
+     * @var WalletInterface[] $wallets
      */
     private $wallets;
 
 
     /**
-     * @var \Lendinvest\Domain\Entit\Investment[] $investments
+     * @var InvestmentInterface[] $investments
      */
     private $investments;
 
@@ -70,7 +70,6 @@ class Investor implements InvestorInterface
     public function __construct(Uuid $id)
     {
         $this->setId($id);
-
         $this->investments = [];
         $this->wallets     = [];
     }
@@ -78,8 +77,9 @@ class Investor implements InvestorInterface
 
     /**
      * @param Uuid $id
+     * @return Investor
      */
-    private function setId(Uuid $id)
+    private function setId(Uuid $id) : Investor
     {
         $this->id = $id;
 
@@ -96,14 +96,13 @@ class Investor implements InvestorInterface
 
 
     /**
-     * @param  Investment $investment
+     * @param  InvestmentInterface $investment
      * @codeCoverageIgnore
      */
-    public function invest(Investment $investment)
+    public function invest(InvestmentInterface $investment)
     {
         $this->investments[] = $investment;
     }
-
 
     /**
      * @param Wallet $wallet
@@ -113,9 +112,8 @@ class Investor implements InvestorInterface
         $this->wallets[] = $wallet;
     }
 
-
     /**
-     * @return \Lendinvest\Domain\Entit\Wallet[]
+     * @return WalletInterface[]
      */
     public function getWallets()
     {

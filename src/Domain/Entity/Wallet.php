@@ -10,10 +10,13 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Type\Currency;
+use LendInvest\Domain\Type\CurrencyInterface;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\Uuid;
 
@@ -31,37 +34,37 @@ class Wallet implements WalletInterface
     private $id;
 
     /**
-     * @var \Lendinvest\Domain\Entity\Investor $investor
+     * @var Investor $investor
      */
     private $investor;
 
     /**
-     * @var \LendInvest\Domain\Type\Currency $currency
+     * @var Currency $currency
      */
     private $currency;
 
     /**
-     * @var \LendInvest\Domain\Type\Money $balance
+     * @var Money $balance
      */
     private $balance;
 
 
     /**
      * @param Uuid     $id
-     * @param Investor $investor
-     * @param Currency $currency
+     * @param InvestorInterface $investor
+     * @param CurrencyInterface $currency
      */
-    public function __construct(Uuid $id, Investor $investor, Currency $currency)
+    public function __construct(Uuid $id, InvestorInterface $investor, CurrencyInterface $currency)
     {
         $this->setId($id);
         $this->setInvestor($investor);
         $this->setCurrency($currency);
-
         $this->setBalance(new Money(0, $currency));
     }
 
     /**
      * @param Uuid $id
+     * @return Wallet
      */
     private function setId(Uuid $id)
     {
@@ -80,6 +83,7 @@ class Wallet implements WalletInterface
 
     /**
      * @param Investor $investor
+     * @return Wallet
      */
     private function setInvestor(Investor $investor)
     {
@@ -87,7 +91,6 @@ class Wallet implements WalletInterface
 
         return $this;
     }
-
 
     /**
      * @return Investor $investor
@@ -97,9 +100,9 @@ class Wallet implements WalletInterface
         return $this->investor;
     }
 
-
     /**
      * @param Currency $currency
+     * @return Wallet
      */
     private function setCurrency(Currency $currency)
     {
@@ -107,7 +110,6 @@ class Wallet implements WalletInterface
 
         return $this;
     }
-
 
     /**
      * @return Currency $currency
@@ -134,13 +136,17 @@ class Wallet implements WalletInterface
         $this->balance = $this->balance->subtract($money);
     }
 
-
+    /**
+     * @param Money $balance
+     */
     private function setBalance(Money $balance)
     {
         $this->balance = $balance;
     }
 
-
+    /**
+     * @return Money
+     */
     public function getBalance() : Money
     {
         return $this->balance;

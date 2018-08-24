@@ -10,7 +10,7 @@ use LendInvest\Domain\Type;
  * @package LendInvest
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class InvestmentTest extends \PHPUnit_Framework_TestCase
+class InvestmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid

@@ -10,6 +10,8 @@
  * @link https://github.com/vasildakov/lendinvest GitHub
  */
 
+declare(strict_types=1);
+
 namespace LendInvest\Application\Interest;
 
 use LendInvest\Domain\Type\Money;
