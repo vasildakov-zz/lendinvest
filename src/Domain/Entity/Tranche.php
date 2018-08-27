@@ -17,10 +17,13 @@ namespace LendInvest\Domain\Entity;
 use LendInvest\Domain\Entity\Loan;
 use LendInvest\Domain\Entity\Investment;
 
+use LendInvest\Domain\Type\InterestInterface;
+use LendInvest\Domain\Type\MoneyInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Type\Interest;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Class Tranche
@@ -36,17 +39,17 @@ class Tranche implements TrancheInterface
     private $id;
 
     /**
-     * @var \LendInvest\Domain\Entity\Loan $loan
+     * @var Loan $loan
      */
     private $loan;
 
     /**
-     * @var \LendInvest\Domain\Type\Interest $interest
+     * @var Interest $interest
      */
     private $interest;
 
     /**
-     * @var \LendInvest\Domain\Type\Money $available
+     * @var Money $available
      */
     private $available;
 
@@ -56,16 +59,23 @@ class Tranche implements TrancheInterface
     private $investments = [];
 
     /**
-     * @var \DateTime $createdAt
+     * @var DateTime $createdAt
      */
     private $createdAt;
 
-
     /**
-     * @param Uuid $id
+     * Tranche constructor.
+     * @param UuidInterface $id
+     * @param LoanInterface $loan
+     * @param MoneyInterface $available
+     * @param InterestInterface $interest
      */
-    public function __construct(Uuid $id, Loan $loan, Money $available, Interest $interest)
-    {
+    public function __construct(
+        UuidInterface $id,
+        LoanInterface $loan,
+        MoneyInterface $available,
+        InterestInterface $interest
+    ) {
         $this->setId($id);
         $this->setLoan($loan);
         $this->setAvailable($available);
@@ -77,8 +87,9 @@ class Tranche implements TrancheInterface
 
     /**
      * @param Uuid $id
+     * @return Tranche
      */
-    private function setId(Uuid $id)
+    private function setId(UuidInterface $id)
     {
         $this->id = $id;
 
@@ -89,15 +100,16 @@ class Tranche implements TrancheInterface
     /**
      * @return Uuid $id
      */
-    public function getId() : Uuid
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * @param Loan $loan
+     * @param LoanInterface $loan
+     * @return Tranche
      */
-    private function setLoan($loan)
+    private function setLoan(LoanInterface $loan)
     {
         $this->loan = $loan;
 
@@ -106,18 +118,19 @@ class Tranche implements TrancheInterface
 
 
     /**
-     * @return Loan $loan
+     * @return LoanInterface $loan
      */
-    public function getLoan() : Loan
+    public function getLoan() : LoanInterface
     {
         return $this->loan;
     }
 
 
     /**
-     * @param Interest $interest
+     * @param InterestInterface $interest
+     * @return Tranche
      */
-    private function setInterest(Interest $interest)
+    private function setInterest(InterestInterface $interest)
     {
         $this->interest = $interest;
 
@@ -128,15 +141,16 @@ class Tranche implements TrancheInterface
     /**
      * @return Interest $interest
      */
-    public function getInterest() : Interest
+    public function getInterest() : InterestInterface
     {
         return $this->interest;
     }
 
     /**
-     * @param Money $available
+     * @param MoneyInterface $available
+     * @return Tranche
      */
-    private function setAvailable(Money $available)
+    private function setAvailable(MoneyInterface $available)
     {
         $this->available = $available;
 
@@ -147,7 +161,7 @@ class Tranche implements TrancheInterface
     /**
      * @return Money $available
      */
-    public function getAvailable() : Money
+    public function getAvailable() : MoneyInterface
     {
         return $this->available;
     }
@@ -166,29 +180,30 @@ class Tranche implements TrancheInterface
     /**
      * Returns current investments amount
      * @return int $amount
-     * @codeCoverageIgnore
      */
     public function getCurrentAmount()
     {
-        //
+        $amount = 0;
+        foreach ($this->getInvestments() as $investment) {
+            $amount += $investment->getAmount();
+        }
+        return $amount;
     }
 
 
     /**
-     * @return array $investments
-     * @codeCoverageIgnore
+     * @return InvestmentInterface[] $investments
      */
-    public function getInvestments()
+    public function getInvestments() : array
     {
         return $this->investments;
     }
 
 
     /**
-     * @param Investment $investment
-     * @codeCoverageIgnore
+     * @param InvestmentInterface $investment
      */
-    public function addInvestment(Investment $investment)
+    public function addInvestment(InvestmentInterface $investment)
     {
         $this->investments[] = $investment;
     }

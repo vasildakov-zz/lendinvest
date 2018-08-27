@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace LendInvest\Application\Interest;
 
+
 /**
  * Class CalculateInterestRequest
  *
@@ -21,12 +22,17 @@ namespace LendInvest\Application\Interest;
  */
 class CalculateInterestRequest
 {
+    /**
+     * @var string
+     */
     private $startDate;
 
+    /**
+     * @var string
+     */
     private $endDate;
 
     /**
-     * @param string $loan          the loan uuid
      * @param string $startDate     starting date in Y-m-d format
      * @param string $endDate       ending date in Y-m-d format
      */

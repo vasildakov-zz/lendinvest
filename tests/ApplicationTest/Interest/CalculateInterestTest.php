@@ -17,19 +17,19 @@ use LendInvest\Domain\Repository;
  */
 class CalculateInterestTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\UuidInterface $id */
     private $id;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestmentRepositoryInterface $investments */
     private $investments;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investment $investment */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestmentInterface $investment */
     private $investment;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Interest $interest */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Type\InterestInterface $interest */
     private $interest;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche */
     private $tranche;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
@@ -37,35 +37,20 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
-        $this->id = $this->getMockBuilder(Type\Uuid::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\UuidInterface $id */
+        $this->id = $this->getMockForAbstractClass(Type\UuidInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Repository\InvestmentRepositoryInterface $investments */
-        $this->investments = $this->getMockBuilder(Repository\InvestmentRepositoryInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->investments = $this->getMockForAbstractClass(Repository\InvestmentRepositoryInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investment $investment */
-        $this->investment = $this->getMockBuilder(Entity\Investment::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestmentInterface $investment */
+        $this->investment = $this->getMockForAbstractClass(Entity\InvestmentInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Interest $interest */
-        $this->interest = $this->getMockBuilder(Type\Interest::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\InterestInterface $interest */
+        $this->interest = $this->getMockForAbstractClass(Type\InterestInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
-        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche */
+        $this->tranche = $this->getMockForAbstractClass(Entity\TrancheInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime $madeAt */
         $this->madeAt = $this->getMockBuilder(Type\DateTime::class)
@@ -89,17 +74,16 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
     {
         $service = new CalculateInterest($this->investments);
 
-        self::assertInstanceOf(CalculateInterestInterface::class, $service);
+        $this->assertInstanceOf(CalculateInterestInterface::class, $service);
     }
 
 
     /**
-     * @test
      * @group application
      */
     public function itCanCalculateInterest()
     {
-        $request = new CalculateInterestRequest('1', '2015-10-01', '2015-10-31');
+        $request = new CalculateInterestRequest('2015-10-01', '2015-10-31');
 
         $this->madeAt
              ->expects($this->once())

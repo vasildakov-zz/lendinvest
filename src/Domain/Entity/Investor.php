@@ -17,6 +17,7 @@ namespace LendInvest\Domain\Entity;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Entity\Wallet;
 use LendInvest\Domain\Entity\Investment;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Investor
@@ -27,7 +28,7 @@ use LendInvest\Domain\Entity\Investment;
 class Investor implements InvestorInterface
 {
     /**
-     * @var \Lendinvest\Domain\Type\Uuid $id
+     * @var UuidInterface $id
      */
     private $id;
 
@@ -51,7 +52,6 @@ class Investor implements InvestorInterface
      */
     private $address;
 
-
     /**
      * @var WalletInterface[] $wallets
      */
@@ -65,21 +65,20 @@ class Investor implements InvestorInterface
 
 
     /**
-     * @param Uuid $id
+     * @param UuidInterface $id
      */
-    public function __construct(Uuid $id)
+    public function __construct(UuidInterface $id)
     {
         $this->setId($id);
         $this->investments = [];
         $this->wallets     = [];
     }
 
-
     /**
-     * @param Uuid $id
-     * @return Investor
+     * @param UuidInterface $id
+     * @return InvestorInterface
      */
-    private function setId(Uuid $id) : Investor
+    private function setId(UuidInterface $id) : InvestorInterface
     {
         $this->id = $id;
 
@@ -89,15 +88,13 @@ class Investor implements InvestorInterface
     /**
      * @return Uuid $id
      */
-    public function getId() : Uuid
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
-
     /**
      * @param  InvestmentInterface $investment
-     * @codeCoverageIgnore
      */
     public function invest(InvestmentInterface $investment)
     {
@@ -105,9 +102,9 @@ class Investor implements InvestorInterface
     }
 
     /**
-     * @param Wallet $wallet
+     * @param WalletInterface $wallet
      */
-    public function addWallet(Wallet $wallet)
+    public function addWallet(WalletInterface $wallet)
     {
         $this->wallets[] = $wallet;
     }
@@ -115,7 +112,7 @@ class Investor implements InvestorInterface
     /**
      * @return WalletInterface[]
      */
-    public function getWallets()
+    public function getWallets() : array
     {
         return $this->wallets;
     }

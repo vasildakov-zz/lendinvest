@@ -12,10 +12,12 @@
 
 namespace LendInvest\Domain\Entity;
 
+use LendInvest\Domain\Type\InterestInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Interest;
 use LendInvest\Domain\Entity\Investment;
 use LendInvest\Domain\Entity\Loan;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Interface TrancheInterface
@@ -28,25 +30,25 @@ interface TrancheInterface
     /**
      * @return Uuid
      */
-    public function getId(): Uuid;
+    public function getId(): UuidInterface;
 
     /**
      * @return Loan
      */
-    public function getLoan(): Loan;
+    public function getLoan(): LoanInterface;
 
     /**
      * @return Interest
      */
-    public function getInterest(): Interest;
+    public function getInterest(): InterestInterface;
 
     /**
-     * @param Investment
+     * @param InvestmentInterface
      */
-    public function addInvestment(Investment $investment);
+    public function addInvestment(InvestmentInterface $investment);
 
     /**
-     * @return array
+     * @return InvestmentInterface[]
      */
     public function getInvestments();
 }

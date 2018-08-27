@@ -18,7 +18,9 @@ use LendInvest\Domain\Entity\Investor;
 use LendInvest\Domain\Type\Currency;
 use LendInvest\Domain\Type\CurrencyInterface;
 use LendInvest\Domain\Type\Money;
+use LendInvest\Domain\Type\MoneyInterface;
 use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Wallet
@@ -34,28 +36,31 @@ class Wallet implements WalletInterface
     private $id;
 
     /**
-     * @var Investor $investor
+     * @var InvestorInterface $investor
      */
     private $investor;
 
     /**
-     * @var Currency $currency
+     * @var CurrencyInterface $currency
      */
     private $currency;
 
     /**
-     * @var Money $balance
+     * @var MoneyInterface $balance
      */
     private $balance;
 
 
     /**
-     * @param Uuid     $id
+     * @param UuidInterface     $id
      * @param InvestorInterface $investor
      * @param CurrencyInterface $currency
      */
-    public function __construct(Uuid $id, InvestorInterface $investor, CurrencyInterface $currency)
-    {
+    public function __construct(
+        UuidInterface $id,
+        InvestorInterface $investor,
+        CurrencyInterface $currency
+    ) {
         $this->setId($id);
         $this->setInvestor($investor);
         $this->setCurrency($currency);
@@ -63,10 +68,10 @@ class Wallet implements WalletInterface
     }
 
     /**
-     * @param Uuid $id
+     * @param UuidInterface $id
      * @return Wallet
      */
-    private function setId(Uuid $id)
+    private function setId(UuidInterface $id)
     {
         $this->id = $id;
 
@@ -76,16 +81,16 @@ class Wallet implements WalletInterface
     /**
      * @return Uuid $id
      */
-    public function getId() : Uuid
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * @param Investor $investor
+     * @param InvestorInterface $investor
      * @return Wallet
      */
-    private function setInvestor(Investor $investor)
+    private function setInvestor(InvestorInterface $investor)
     {
         $this->investor = $investor;
 
@@ -93,18 +98,18 @@ class Wallet implements WalletInterface
     }
 
     /**
-     * @return Investor $investor
+     * @return InvestorInterface $investor
      */
-    public function getInvestor() : Investor
+    public function getInvestor() : InvestorInterface
     {
         return $this->investor;
     }
 
     /**
-     * @param Currency $currency
+     * @param CurrencyInterface $currency
      * @return Wallet
      */
-    private function setCurrency(Currency $currency)
+    private function setCurrency(CurrencyInterface $currency)
     {
         $this->currency = $currency;
 
@@ -112,42 +117,42 @@ class Wallet implements WalletInterface
     }
 
     /**
-     * @return Currency $currency
+     * @return CurrencyInterface $currency
      */
-    public function getCurrency() : Currency
+    public function getCurrency() : CurrencyInterface
     {
         return $this->currency;
     }
 
     /**
-     * @param Money $money
+     * @param MoneyInterface $money
      */
-    public function deposit(Money $money)
+    public function deposit(MoneyInterface $money)
     {
         $this->balance = $this->balance->add($money);
     }
 
 
     /**
-     * @param Money $money
+     * @param MoneyInterface $money
      */
-    public function withdraw(Money $money)
+    public function withdraw(MoneyInterface $money)
     {
         $this->balance = $this->balance->subtract($money);
     }
 
     /**
-     * @param Money $balance
+     * @param MoneyInterface $balance
      */
-    private function setBalance(Money $balance)
+    private function setBalance(MoneyInterface $balance)
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getBalance() : Money
+    public function getBalance() : MoneyInterface
     {
         return $this->balance;
     }

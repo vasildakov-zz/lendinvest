@@ -15,8 +15,10 @@ declare(strict_types=1);
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Type\Currency;
+use LendInvest\Domain\Type\CurrencyInterface;
 use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Loan
@@ -55,13 +57,17 @@ class Loan implements LoanInterface
 
     /**
      * Loan constructor.
-     * @param Uuid $id
-     * @param Currency $currency
+     * @param UuidInterface $id
+     * @param CurrencyInterface $currency
      * @param DateTime $startDate
      * @param DateTime $endDate
      */
-    public function __construct(Uuid $id, Currency $currency, DateTime $startDate, DateTime $endDate)
-    {
+    public function __construct(
+        UuidInterface $id,
+        CurrencyInterface $currency,
+        DateTime $startDate,
+        DateTime $endDate
+    ) {
         $this->setId($id);
         $this->setCurrency($currency);
         $this->setStartDate($startDate);
@@ -74,7 +80,7 @@ class Loan implements LoanInterface
      * @param Uuid $id
      * @return Loan
      */
-    private function setId(Uuid $id)
+    private function setId(UuidInterface $id)
     {
         $this->id = $id;
 
@@ -82,18 +88,18 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @return Uuid $id
+     * @return UuidInterface $id
      */
-    public function getId() : Uuid
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * @param Currency $currency
+     * @param CurrencyInterface $currency
      * @return Loan
      */
-    private function setCurrency(Currency $currency)
+    private function setCurrency(CurrencyInterface $currency)
     {
         $this->currency = $currency;
 
@@ -103,21 +109,21 @@ class Loan implements LoanInterface
     /**
      * @return Currency $currency
      */
-    public function getCurrency() : Currency
+    public function getCurrency() : CurrencyInterface
     {
         return $this->currency;
     }
 
     /**
-     * @param \LendInvest\Domain\Entity\Tranche $tranche
+     * @param TrancheInterface $tranche
      */
-    public function addTranche(Tranche $tranche)
+    public function addTranche(TrancheInterface $tranche)
     {
         $this->tranches[] = $tranche;
     }
 
     /**
-     * @return array $tranches
+     * @return TrancheInterface][ $tranches
      */
     public function getTranches()
     {
@@ -127,7 +133,7 @@ class Loan implements LoanInterface
     /**
      * @return boolean  Return false if Loan does not have tranches
      */
-    public function hasTranches()
+    public function hasTranches() : bool
     {
         return !empty($this->tranches);
     }

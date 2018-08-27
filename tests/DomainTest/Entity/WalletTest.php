@@ -19,13 +19,13 @@ class WalletTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->id = $this->getMockBuilder(Type\Uuid::class)->disableOriginalConstructor()->getMock();
+        $this->id = $this->getMockForAbstractClass(Type\UuidInterface::class);
 
-        $this->investor = $this->getMockBuilder(Entity\Investor::class)->disableOriginalConstructor()->getMock();
+        $this->investor = $this->getMockForAbstractClass(Entity\InvestorInterface::class);
 
-        $this->currency = $this->getMockBuilder(Type\Currency::class)->disableOriginalConstructor()->getMock();
+        $this->currency = $this->getMockForAbstractClass(Type\CurrencyInterface::class);
 
-        $this->money = $this->getMockBuilder(Type\Money::class)->disableOriginalConstructor()->getMock();
+        $this->money = $this->getMockForAbstractClass(Type\MoneyInterface::class);
     }
 
     /**
@@ -36,12 +36,9 @@ class WalletTest extends \PHPUnit\Framework\TestCase
     {
         $wallet = new Entity\Wallet($this->id, $this->investor, $this->currency);
 
-        $this->assertInstanceOf(Entity\Wallet::class, $wallet);
-
+        $this->assertInstanceOf(Entity\WalletInterface::class, $wallet);
         $this->assertEquals($this->id, $wallet->getId());
-
         $this->assertEquals($this->investor, $wallet->getInvestor());
-
         $this->assertEquals($this->currency, $wallet->getCurrency());
     }
 
@@ -52,9 +49,7 @@ class WalletTest extends \PHPUnit\Framework\TestCase
     public function itHasRequiredProperties()
     {
         $this->assertClassHasAttribute('id', Entity\Wallet::class);
-
         $this->assertClassHasAttribute('investor', Entity\Wallet::class);
-
         $this->assertClassHasAttribute('balance', Entity\Wallet::class);
     }
 
@@ -70,9 +65,9 @@ class WalletTest extends \PHPUnit\Framework\TestCase
 
         $wallet->deposit($money);
 
-        self::assertEquals(120, $wallet->getBalance()->getAmount());
+        $this->assertEquals(120, $wallet->getBalance()->getValue());
 
-        self::assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
+        $this->assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
     }
 
     /**
@@ -87,8 +82,8 @@ class WalletTest extends \PHPUnit\Framework\TestCase
 
         $wallet->withdraw(new Type\Money(70, 'GBP'));
 
-        self::assertEquals(30, $wallet->getBalance()->getAmount());
+        $this->assertEquals(30, $wallet->getBalance()->getValue());
 
-        self::assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
+        $this->assertEquals('GBP', $wallet->getBalance()->getCurrency()->getCode());
     }
 }

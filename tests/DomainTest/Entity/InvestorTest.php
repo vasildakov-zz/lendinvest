@@ -13,12 +13,12 @@ use LendInvest\Domain\Type;
 class InvestorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid
+     * @var \PHPUnit_Framework_MockObject_MockObject|Type\UuidInterface
      */
     protected $id;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\Wallet
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\WalletInterface
      */
     protected $wallet;
 
@@ -26,16 +26,10 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
-        $this->id = $this->getMockBuilder(Type\Uuid::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->id = $this->getMockForAbstractClass(Type\UuidInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Wallet $wallet */
-        $this->wallet = $this->getMockBuilder(Entity\Wallet::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->wallet = $this->getMockForAbstractClass(Entity\WalletInterface::class);
     }
 
 
@@ -48,7 +42,6 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
         $investor = new Entity\Investor($this->id);
 
         $this->assertInstanceOf(Entity\Investor::class, $investor);
-
         $this->assertEquals($this->id, $investor->getId());
     }
 
@@ -60,15 +53,10 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
     public function itHasRequiredProperties()
     {
         $this->assertClassHasAttribute('id', Entity\Investor::class);
-
         $this->assertClassHasAttribute('name', Entity\Investor::class);
-
         $this->assertClassHasAttribute('surname', Entity\Investor::class);
-
         $this->assertClassHasAttribute('email', Entity\Investor::class);
-
         $this->assertClassHasAttribute('address', Entity\Investor::class);
-
         $this->assertClassHasAttribute('wallets', Entity\Investor::class);
     }
 
@@ -80,9 +68,7 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
     public function itCanAddWalletsWithDifferentCurrencies()
     {
         $investor = new Entity\Investor($this->id);
-
         $investor->addWallet($this->wallet);
-
         $this->assertEquals(1, count($investor->getWallets()));
     }
 }

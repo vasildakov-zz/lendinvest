@@ -14,7 +14,7 @@ namespace LendInvest\Domain\Type;
 
 interface MoneyInterface
 {
-    public function getAmount();
+    public function getValue();
 
     public function getCurrency();
 

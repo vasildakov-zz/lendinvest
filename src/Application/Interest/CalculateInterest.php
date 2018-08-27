@@ -40,9 +40,11 @@ final class CalculateInterest implements CalculateInterestInterface
     /**
      * @param  CalculateInterestRequest $request
      * @return array
+     * @throws \Exception
      */
     public function __invoke(CalculateInterestRequest $request)
     {
+        // var_dump($request); exit();
         $return = [];
 
         $start = $request->getStartDate();
@@ -72,7 +74,7 @@ final class CalculateInterest implements CalculateInterestInterface
 
             $return[] = $earn;
         }
-
+        var_dump($return);
         return $return;
     }
 }

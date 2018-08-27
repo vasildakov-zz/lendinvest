@@ -22,7 +22,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf(Money::class, $money);
 
-        $this->assertEquals(100, $money->getAmount());
+        $this->assertEquals(100, $money->getValue());
 
         $this->assertEquals('GBP', $money->getCurrency()->getCode());
     }
@@ -45,7 +45,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
      */
     public function itCanThrowAnException()
     {
-        $money = new Money('100', new Currency('GBP'));
+        new Money('100', new Currency('GBP'));
     }
 
 
@@ -59,7 +59,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
         $money = $money->add(new Money(20, new Currency('GBP')));
 
-        $this->assertEquals(120, $money->getAmount());
+        $this->assertEquals(120, $money->getValue());
     }
 
     /**
@@ -72,6 +72,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
         $money = $money->subtract(new Money(40, new Currency('GBP')));
 
-        $this->assertEquals(110, $money->getAmount());
+        $this->assertEquals(110, $money->getValue());
     }
 }

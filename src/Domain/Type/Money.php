@@ -23,7 +23,7 @@ class Money implements MoneyInterface
     /**
      * @var integer
      */
-    private $amount;
+    private $value;
 
     /**
      * @var Currency
@@ -32,22 +32,22 @@ class Money implements MoneyInterface
 
     /**
      * Money constructor.
-     * @param $amount
+     * @param $value
      * @param $currency
      */
-    public function __construct($amount, $currency)
+    public function __construct($value, $currency)
     {
-        if (!is_int($amount)) {
+        if (!is_int($value)) {
             throw new \InvalidArgumentException('$amount must be an integer');
         }
-        $this->amount   = $amount;
+        $this->value   = $value;
         $this->currency = $this->handleCurrencyArgument($currency);
     }
 
 
-    public function getAmount()
+    public function getValue()
     {
-        return $this->amount;
+        return $this->value;
     }
 
 
@@ -60,7 +60,7 @@ class Money implements MoneyInterface
     public function add(MoneyInterface $other)
     {
         $this->assertSameCurrency($this, $other);
-        $value = $this->amount + $other->getAmount();
+        $value = $this->value + $other->getValue();
         $this->assertIsInteger($value);
         return $this->newMoney($value);
     }
@@ -69,19 +69,20 @@ class Money implements MoneyInterface
     public function subtract(MoneyInterface $other)
     {
         $this->assertSameCurrency($this, $other);
-        $value = $this->amount - $other->getAmount();
+        $value = $this->value - $other->getValue();
         $this->assertIsInteger($value);
         return $this->newMoney($value);
     }
 
 
-    private function newMoney($amount)
+    private function newMoney($value)
     {
-        return new static($amount, $this->currency);
+        return new static($value, $this->currency);
     }
 
     /**
-     * @codeCoverageIgnore
+     * @param MoneyInterface $a
+     * @param MoneyInterface $b
      */
     private function assertSameCurrency(MoneyInterface $a, MoneyInterface $b)
     {
@@ -91,11 +92,11 @@ class Money implements MoneyInterface
     }
 
     /**
-     * @codeCoverageIgnore
+     * @param $value
      */
-    private function assertIsInteger($amount)
+    private function assertIsInteger($value)
     {
-        if (!is_int($amount)) {
+        if (!is_int($value)) {
             throw new OverflowException;
         }
     }
@@ -105,7 +106,7 @@ class Money implements MoneyInterface
      */
     private static function handleCurrencyArgument($currency)
     {
-        if (!$currency instanceof Currency && !is_string($currency)) {
+        if (!$currency instanceof CurrencyInterface && !is_string($currency)) {
             throw new \InvalidArgumentException('$currency must be an object of type Currency or a string');
         }
         if (is_string($currency)) {

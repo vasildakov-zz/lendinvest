@@ -12,10 +12,9 @@
 
 namespace LendInvest\Domain\Entity;
 
-use Lendinvest\Domain\Type\Uuid;
-use Lendinvest\Domain\Type\Money;
-use Lendinvest\Domain\Type\Currency;
-use Lendinvest\Domain\Entity\Investor;
+use LendInvest\Domain\Type\CurrencyInterface;
+use LendInvest\Domain\Type\MoneyInterface;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Interface WalletInterface
@@ -26,32 +25,34 @@ use Lendinvest\Domain\Entity\Investor;
 interface WalletInterface
 {
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId() : Uuid;
+    public function getId() : UuidInterface;
 
     /**
-     * @return Investor
+     * @return InvestorInterface
      */
-    public function getInvestor() : Investor;
+    public function getInvestor() : InvestorInterface;
 
     /**
-     * @return Currency
+     * @return CurrencyInterface
      */
-    public function getCurrency() : Currency;
+    public function getCurrency() : CurrencyInterface;
 
     /**
-     * @param Money
+     * @param MoneyInterface $amount
+     * @return mixed
      */
-    public function deposit(Money $amount);
+    public function deposit(MoneyInterface $amount);
 
     /**
-     * @param Money
+     * @param MoneyInterface $amount
+     * @return mixed
      */
-    public function withdraw(Money $amount);
+    public function withdraw(MoneyInterface $amount);
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getBalance() : Money;
+    public function getBalance() : MoneyInterface;
 }

@@ -13,8 +13,10 @@
 namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Entity\Tranche;
+use LendInvest\Domain\Type\CurrencyInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Currency;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Interface LoanInterface
@@ -25,18 +27,18 @@ use LendInvest\Domain\Type\Currency;
 interface LoanInterface
 {
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId() : Uuid;
+    public function getId() : UuidInterface;
 
     /**
-     * @return Currency
+     * @return CurrencyInterface
      */
-    public function getCurrency() : Currency;
+    public function getCurrency() : CurrencyInterface;
 
     /**
-     * @param Tranche $tranche
+     * @param TrancheInterface $tranche
      * @return void
      */
-    public function addTranche(Tranche $tranche);
+    public function addTranche(TrancheInterface $tranche);
 }
