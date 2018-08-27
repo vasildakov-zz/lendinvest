@@ -30,7 +30,13 @@ interface InvestorInterface
     public function getId() : UuidInterface;
 
     /**
-     * @return void
+     * @return string
+     */
+    public function getName() : string;
+
+    /**
+     * @param WalletInterface $wallet
+     * @return mixed
      */
     public function addWallet(WalletInterface $wallet);
 

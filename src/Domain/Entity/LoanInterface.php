@@ -41,4 +41,14 @@ interface LoanInterface
      * @return void
      */
     public function addTranche(TrancheInterface $tranche);
+
+    /**
+     * @return TrancheInterface[]
+     */
+    public function getTranches() : array;
+
+    /**
+     * @return int
+     */
+    public function getNumberOfDays() : int;
 }

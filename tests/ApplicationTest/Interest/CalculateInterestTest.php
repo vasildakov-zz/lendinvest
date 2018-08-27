@@ -26,6 +26,9 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestmentInterface $investment */
     private $investment;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestorInterface $investor */
+    private $investor;
+
     /** @var \PHPUnit_Framework_MockObject_MockObject|Type\InterestInterface $interest */
     private $interest;
 
@@ -46,23 +49,20 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestmentInterface $investment */
         $this->investment = $this->getMockForAbstractClass(Entity\InvestmentInterface::class);
 
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestmentInterface $investment */
+        $this->investor = $this->getMockForAbstractClass(Entity\InvestorInterface::class);
+
         /** @var \PHPUnit_Framework_MockObject_MockObject|Type\InterestInterface $interest */
         $this->interest = $this->getMockForAbstractClass(Type\InterestInterface::class);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche */
         $this->tranche = $this->getMockForAbstractClass(Entity\TrancheInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime $madeAt */
-        $this->madeAt = $this->getMockBuilder(Type\DateTime::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\DateTime $madeAt */
+        $this->madeAt = $this->getMockBuilder(\DateTime::class)->getMock();
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
-        $this->amount = $this->getMockBuilder(Type\Money::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->amount = $this->getMockForAbstractClass(Type\MoneyInterface::class);
     }
 
 
@@ -79,16 +79,17 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * @test
      * @group application
      */
     public function itCanCalculateInterest()
     {
         $request = new CalculateInterestRequest('2015-10-01', '2015-10-31');
 
-        $this->madeAt
+        $this->investment
              ->expects($this->once())
-             ->method('toString')
-             ->willReturn('2015-10-03')
+             ->method('getMadeAt')
+             ->willReturn(new \DateTime('2015-10-03'))
         ;
 
         $this->interest
@@ -115,9 +116,21 @@ class CalculateInterestTest extends \PHPUnit\Framework\TestCase
              ->willReturn($this->amount)
         ;
 
+        $this->investment
+            ->expects($this->once())
+            ->method('getInvestor')
+            ->willReturn($this->investor)
+        ;
+
+        $this->investor
+            ->expects($this->once())
+            ->method('getName')
+            ->willReturn('Investor 1')
+        ;
+
         $this->amount
              ->expects($this->once())
-             ->method('getAmount')
+             ->method('getValue')
              ->willReturn(1000)
         ;
 

@@ -63,13 +63,16 @@ class Investor implements InvestorInterface
      */
     private $investments;
 
-
     /**
+     * Investor constructor.
      * @param UuidInterface $id
+     * @param string $name
      */
-    public function __construct(UuidInterface $id)
+    public function __construct(UuidInterface $id, string $name)
     {
         $this->setId($id);
+        $this->setName($name);
+
         $this->investments = [];
         $this->wallets     = [];
     }
@@ -91,6 +94,18 @@ class Investor implements InvestorInterface
     public function getId() : UuidInterface
     {
         return $this->id;
+    }
+
+
+    private function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+
+    public function getName() : string
+    {
+        return $this->name;
     }
 
     /**

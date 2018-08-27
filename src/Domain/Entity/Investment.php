@@ -18,6 +18,7 @@ use LendInvest\Domain\Type\MoneyInterface;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\DateTime;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Class LendInvest
@@ -54,13 +55,13 @@ class Investment implements InvestmentInterface
 
 
     /**
-     * @param Uuid       $id
+     * @param UuidInterface       $id
      * @param InvestorInterface   $investor
      * @param TrancheInterface    $tranche
      * @param MoneyInterface      $amount
      */
     public function __construct(
-        Uuid $id,
+        UuidInterface $id,
         InvestorInterface $investor,
         TrancheInterface $tranche,
         MoneyInterface $amount
@@ -69,15 +70,15 @@ class Investment implements InvestmentInterface
         $this->setInvestor($investor);
         $this->setTranche($tranche);
         $this->setAmount($amount);
-        $this->setMadeAt(DateTime::fromDateTime(new \DateTime()));
+        $this->setMadeAt(new \DateTime('now'));
     }
 
 
     /**
-     * @param Uuid $id
+     * @param UuidInterface $id
      * @return Investment
      */
-    private function setId(Uuid $id)
+    private function setId(UuidInterface $id)
     {
         $this->id = $id;
 
@@ -87,7 +88,7 @@ class Investment implements InvestmentInterface
     /**
      * @return Uuid $id
      */
-    public function getId() : Uuid
+    public function getId() : UuidInterface
     {
         return $this->id;
     }
@@ -166,7 +167,6 @@ class Investment implements InvestmentInterface
     private function assertSameCurrency(Money $money)
     {
         $currency = $money->getCurrency();
-
         if ($this->amount->getCurrency()->equals($currency)) {
             return true;
         }
@@ -175,10 +175,10 @@ class Investment implements InvestmentInterface
     }
 
     /**
-     * @param DateTime $madeAt
+     * @param \DateTime $madeAt
      * @return $this
      */
-    private function setMadeAt(DateTime $madeAt)
+    private function setMadeAt(\DateTime $madeAt)
     {
         $this->madeAt = $madeAt;
 
@@ -186,25 +186,10 @@ class Investment implements InvestmentInterface
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
-    public function getMadeAt()
+    public function getMadeAt() : \DateTime
     {
         return $this->madeAt;
     }
-
-
-    /**
-     * Return Investment earn ????
-     */
-    /* public function getEarn()
-    {
-        $tranche = $this->getTranche();
-        $rate = $tranche->getDailyInterestRate();
-        $loan = $tranche->getLoan();
-
-        $earn = ($this->amount * $rate / 100) * $days;
-
-        return $earn;
-    }*/
 }

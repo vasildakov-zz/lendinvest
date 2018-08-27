@@ -46,9 +46,9 @@ class LoanTest extends \PHPUnit\Framework\TestCase
 
         $this->tranche = $this->getMockForAbstractClass(Entity\TrancheInterface::class);
 
-        $this->start = $this->getMockBuilder(Type\DateTime::class)->disableOriginalConstructor()->getMock();
+        $this->start = $this->getMockBuilder(\DateTime::class)->disableOriginalConstructor()->getMock();
 
-        $this->end = $this->getMockBuilder(Type\DateTime::class)->disableOriginalConstructor()->getMock();
+        $this->end = $this->getMockBuilder(\DateTime::class)->disableOriginalConstructor()->getMock();
     }
 
     /**
@@ -93,15 +93,21 @@ class LoanTest extends \PHPUnit\Framework\TestCase
         $loan = new Entity\Loan($this->id, $this->currency, $this->start, $this->end);
 
         $loan->addTranche($this->tranche);
-
         $this->assertTrue($loan->hasTranches());
-
         $this->assertEquals(1, count($loan->getTranches()));
     }
 
-    /* public function itCanReturnTheIntervalBetweenStartingAndEndingDates()
+    /**
+     * @test
+     * @group domain
+     */
+    public function itReturnsTheIntervalBetweenStartingAndEndingDate()
     {
-        $loan = new Entity\Loan($this->id, $this->currency, $this->start, $this->end);
-        var_dump($loan->getNumberOfDays());
-    } */
+        $start = new \DateTime('2015-10-01');
+        $end   = new \DateTime('2015-11-15');
+
+        $loan = new Entity\Loan($this->id, $this->currency, $start, $end);
+
+        $this->assertEquals(45, $loan->getNumberOfDays());
+    }
 }

@@ -44,7 +44,7 @@ class CalculateInterestRequest
     /**
      * @return string $startDate
      */
-    public function getStartDate()
+    public function getStartDate() : string
     {
         return $this->startDate;
     }
@@ -52,7 +52,7 @@ class CalculateInterestRequest
     /**
      * @return string $endDate
      */
-    public function getEndDate()
+    public function getEndDate() : string
     {
         return $this->endDate;
     }

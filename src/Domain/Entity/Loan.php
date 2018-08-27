@@ -16,7 +16,6 @@ namespace LendInvest\Domain\Entity;
 
 use LendInvest\Domain\Type\Currency;
 use LendInvest\Domain\Type\CurrencyInterface;
-use LendInvest\Domain\Type\DateTime;
 use LendInvest\Domain\Type\Uuid;
 use LendInvest\Domain\Type\UuidInterface;
 
@@ -59,14 +58,14 @@ class Loan implements LoanInterface
      * Loan constructor.
      * @param UuidInterface $id
      * @param CurrencyInterface $currency
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      */
     public function __construct(
         UuidInterface $id,
         CurrencyInterface $currency,
-        DateTime $startDate,
-        DateTime $endDate
+        \DateTime $startDate,
+        \DateTime $endDate
     ) {
         $this->setId($id);
         $this->setCurrency($currency);
@@ -77,7 +76,7 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @param Uuid $id
+     * @param UuidInterface $id
      * @return Loan
      */
     private function setId(UuidInterface $id)
@@ -123,9 +122,9 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @return TrancheInterface][ $tranches
+     * @return TrancheInterface[]
      */
-    public function getTranches()
+    public function getTranches() : array
     {
         return $this->tranches;
     }
@@ -139,10 +138,10 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @param DateTime $startDate
+     * @param \DateTime $startDate
      * @return Loan
      */
-    private function setStartDate(DateTime $startDate)
+    private function setStartDate(\DateTime $startDate)
     {
         $this->startDate = $startDate;
 
@@ -150,7 +149,7 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @return DateTime $startDate
+     * @return \DateTime $startDate
      */
     public function getStartDate()
     {
@@ -158,10 +157,10 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @param DateTime $endDate
+     * @param \DateTime $endDate
      * @return Loan
      */
-    private function setEndDate(DateTime $endDate)
+    private function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
@@ -169,23 +168,19 @@ class Loan implements LoanInterface
     }
 
     /**
-     * @return DateTime $endDate
+     * @return \DateTime $endDate
      */
-    public function getEndDate() : DateTime
+    public function getEndDate() : \DateTime
     {
         return $this->endDate;
     }
 
     /**
      * Returns the number of days
-     * @todo removed hardcoded values
-     * @return int  $days
+     * @return int
      */
-    public function getNumberOfDays()
+    public function getNumberOfDays() : int
     {
-        $start = (new \DateTime('2015-10-01'));
-        $end   = (new \DateTime('2015-11-15'));
-
-        return $start->diff($end)->days;
+        return $this->getStartDate()->diff($this->getEndDate())->days;
     }
 }

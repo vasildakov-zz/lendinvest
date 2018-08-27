@@ -43,6 +43,11 @@ interface TrancheInterface
     public function getInterest(): InterestInterface;
 
     /**
+     * @return
+     */
+    public function getDailyInterest();
+
+    /**
      * @param InvestmentInterface
      */
     public function addInvestment(InvestmentInterface $investment);

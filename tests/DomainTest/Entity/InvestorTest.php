@@ -39,7 +39,7 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
      */
     public function itCanBeConstructed()
     {
-        $investor = new Entity\Investor($this->id);
+        $investor = new Entity\Investor($this->id, 'Investor 1');
 
         $this->assertInstanceOf(Entity\Investor::class, $investor);
         $this->assertEquals($this->id, $investor->getId());
@@ -67,7 +67,7 @@ class InvestorTest extends \PHPUnit\Framework\TestCase
      */
     public function itCanAddWalletsWithDifferentCurrencies()
     {
-        $investor = new Entity\Investor($this->id);
+        $investor = new Entity\Investor($this->id, 'Investor 1');
         $investor->addWallet($this->wallet);
         $this->assertEquals(1, count($investor->getWallets()));
     }

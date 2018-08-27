@@ -12,12 +12,8 @@
 
 namespace LendInvest\Domain\Entity;
 
-use LendInvest\Domain\Entity\Investor;
-use LendInvest\Domain\Entity\Tranche;
-
-use LendInvest\Domain\Type\Money;
 use LendInvest\Domain\Type\MoneyInterface;
-use LendInvest\Domain\Type\Uuid;
+use LendInvest\Domain\Type\UuidInterface;
 
 /**
  * Interface InvestmentInterface
@@ -28,9 +24,9 @@ use LendInvest\Domain\Type\Uuid;
 interface InvestmentInterface
 {
     /**
-     * @return Uuid
+     * @return UuidInterface
      */
-    public function getId() : Uuid;
+    public function getId() : UuidInterface;
 
     /**
      * @return InvestorInterface
@@ -46,4 +42,9 @@ interface InvestmentInterface
      * @return MoneyInterface
      */
     public function getAmount() : MoneyInterface;
+
+    /**
+     * @return \DateTime
+     */
+    public function getMadeAt() : \DateTime;
 }

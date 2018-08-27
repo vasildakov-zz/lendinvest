@@ -28,6 +28,11 @@ class InvestmentTest extends \PHPUnit\Framework\TestCase
     protected $tranche;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Entity\LoanInterface
+     */
+    protected $loan;
+
+    /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Type\Money
      */
     protected $amount;
@@ -35,35 +40,23 @@ class InvestmentTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Uuid $id */
-        $this->id = $this->getMockBuilder(Type\Uuid::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\UuidInterface $id */
+        $this->id = $this->getMockForAbstractClass(Type\UuidInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Investor $investor */
-        $this->investor = $this->getMockBuilder(Entity\Investor::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\InvestorInterface $investor */
+        $this->investor = $this->getMockForAbstractClass(Entity\InvestorInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\Tranche $tranche */
-        $this->tranche = $this->getMockBuilder(Entity\Tranche::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Entity\TrancheInterface $tranche */
+        $this->tranche = $this->getMockForAbstractClass(Entity\TrancheInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\Money $amount */
-        $this->amount = $this->getMockBuilder(Type\Money::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\MoneyInterface $amount */
+        $this->amount = $this->getMockForAbstractClass(Type\MoneyInterface::class);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\DateTime $madeAt */
-        $this->madeAt = $this->getMockBuilder(Type\DateTime::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\DateTime $madeAt */
+        $this->madeAt = $this->getMockBuilder(\DateTime::class)->getMock();
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Type\LoanInterface $loan */
+        $this->loan = $this->getMockForAbstractClass(Entity\LoanInterface::class);
     }
 
     /**
@@ -75,16 +68,11 @@ class InvestmentTest extends \PHPUnit\Framework\TestCase
         $investment = new Entity\Investment($this->id, $this->investor, $this->tranche, $this->amount);
 
         $this->assertInstanceOf(Entity\Investment::class, $investment);
-
         $this->assertEquals($this->id, $investment->getId());
-
         $this->assertEquals($this->investor, $investment->getInvestor());
-
         $this->assertEquals($this->tranche, $investment->getTranche());
-
         $this->assertEquals($this->amount, $investment->getAmount());
-
-        $this->assertInstanceOf(Type\DateTime::class, $investment->getMadeAt());
+        $this->assertInstanceOf(\DateTime::class, $investment->getMadeAt());
     }
 
     /**
@@ -94,13 +82,9 @@ class InvestmentTest extends \PHPUnit\Framework\TestCase
     public function itHasRequiredProperties()
     {
         $this->assertClassHasAttribute('id', Entity\Investment::class);
-
         $this->assertClassHasAttribute('amount', Entity\Investment::class);
-
         $this->assertClassHasAttribute('investor', Entity\Investment::class);
-
         $this->assertClassHasAttribute('amount', Entity\Investment::class);
-
         $this->assertClassHasAttribute('madeAt', Entity\Investment::class);
     }
 }
